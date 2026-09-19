@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="حزمة كتب شيخ البرمجة — 3 كتب متكاملة للمذاكرة الذاتية">
+  <title>كتب شيخ البرمجة — مذاكرة ذاتية + محتوى منظم</title>
+  <desc>ثلاثة كتب برمجة مرتبة على مكتب مع أوراق ملاحظات وقلم</desc>
+
+  <!-- Background: warm study desk environment -->
+  <rect width="800" height="600" fill="#f3eff8"/>
+
+  <!-- Wall behind -->
+  <rect width="800" height="360" fill="#f7f4fb"/>
+
+  <!-- Shelf on wall (suggestion) -->
+  <rect x="80" y="120" width="640" height="12" rx="3" fill="#d4c9d8"/>
+  <!-- Books on shelf (small, decorative) -->
+  <rect x="100" y="80" width="22" height="40" rx="2" fill="#8b5cf6" opacity="0.5"/>
+  <rect x="126" y="88" width="18" height="32" rx="2" fill="#3b82f6" opacity="0.4"/>
+  <rect x="148" y="84" width="20" height="36" rx="2" fill="#14a085" opacity="0.5"/>
+  <rect x="172" y="90" width="16" height="30" rx="2" fill="#f59e0b" opacity="0.4"/>
+  <rect x="192" y="82" width="24" height="38" rx="2" fill="#ef4444" opacity="0.35"/>
+  <rect x="220" y="86" width="18" height="34" rx="2" fill="#8b5cf6" opacity="0.35"/>
+
+  <!-- Desk surface -->
+  <rect x="0" y="360" width="800" height="240" fill="#e8dff0"/>
+  <rect x="0" y="358" width="800" height="5" fill="#d4c9dc"/>
+  <!-- Desk wood grain -->
+  <rect x="0" y="368" width="800" height="1" fill="#dcd3e8" opacity="0.6"/>
+  <rect x="0" y="390" width="800" height="1" fill="#dcd3e8" opacity="0.4"/>
+
+  <!-- Desk lamp (left) -->
+  <rect x="60" y="260" width="8" height="100" rx="4" fill="#c8c0d0"/>
+  <path d="M 64 262 Q 120 220 160 240" stroke="#c8c0d0" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="162" cy="242" rx="30" ry="14" fill="#f0e8a0" opacity="0.8"/>
+  <!-- Lamp light glow on desk -->
+  <ellipse cx="200" cy="380" rx="100" ry="30" fill="#f5f0b0" opacity="0.25"/>
+
+  <!-- Book 3 (bottom, largest — Exercises book) -->
+  <rect x="120" y="310" width="500" height="68" rx="8" fill="#ddd0f0"/>
+  <!-- Spine -->
+  <rect x="120" y="310" width="34" height="68" rx="6" fill="#8b5cf6"/>
+  <!-- Cover lines -->
+  <rect x="170" y="328" width="180" height="10" rx="4" fill="#6d4fc0" opacity="0.50"/>
+  <rect x="170" y="344" width="130" height="8"  rx="3" fill="#6d4fc0" opacity="0.35"/>
+  <rect x="170" y="358" width="160" height="7"  rx="3" fill="#6d4fc0" opacity="0.25"/>
+  <!-- Label: book 3 -->
+  <rect x="500" y="322" width="100" height="24" rx="12" fill="#8b5cf6" opacity="0.20"/>
+  <text x="550" y="338" font-family="Cairo, sans-serif" font-size="11" font-weight="700" fill="#6d4fc0" text-anchor="middle">الواجبات</text>
+
+  <!-- Book 2 (middle — Solved Exercises) -->
+  <rect x="132" y="234" width="480" height="70" rx="8" fill="#ede0ff"/>
+  <!-- Spine -->
+  <rect x="132" y="234" width="32" height="70" rx="6" fill="#7c3aed"/>
+  <!-- Cover lines -->
+  <rect x="180" y="252" width="200" height="11" rx="4" fill="#5b21b6" opacity="0.45"/>
+  <rect x="180" y="270" width="150" height="9"  rx="3" fill="#5b21b6" opacity="0.30"/>
+  <rect x="180" y="285" width="120" height="8"  rx="3" fill="#5b21b6" opacity="0.22"/>
+  <!-- Label -->
+  <rect x="496" y="248" width="96" height="24" rx="12" fill="#7c3aed" opacity="0.18"/>
+  <text x="544" y="264" font-family="Cairo, sans-serif" font-size="11" font-weight="700" fill="#5b21b6" text-anchor="middle">التدريبات</text>
+
+  <!-- Book 1 (top, most prominent — Explanation book) -->
+  <rect x="144" y="150" width="460" height="78" rx="8" fill="white" filter="url(#bookShadow)"/>
+  <defs>
+    <filter id="bookShadow" x="-10%" y="-20%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#8b5cf6" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <!-- Spine with gradient feel -->
+  <rect x="144" y="150" width="34" height="78" rx="6" fill="#6d28d9"/>
+  <!-- Spine decorative line -->
+  <rect x="162" y="160" width="4" height="58" rx="2" fill="white" opacity="0.30"/>
+  <!-- Cover title area -->
+  <rect x="190" y="163" width="220" height="13" rx="5" fill="#4c1d95" opacity="0.60"/>
+  <!-- Subtitle lines -->
+  <rect x="190" y="184" width="170" height="9"  rx="3" fill="#4c1d95" opacity="0.35"/>
+  <rect x="190" y="200" width="200" height="8"  rx="3" fill="#4c1d95" opacity="0.25"/>
+  <rect x="190" y="214" width="130" height="7"  rx="3" fill="#4c1d95" opacity="0.18"/>
+  <!-- Label badge -->
+  <rect x="490" y="158" width="92" height="28" rx="14" fill="#6d28d9" opacity="0.15"/>
+  <text x="536" y="176" font-family="Cairo, sans-serif" font-size="12" font-weight="700" fill="#4c1d95" text-anchor="middle">الشرح</text>
+
+  <!-- "3 كتب" hero badge -->
+  <rect x="612" y="140" width="120" height="44" rx="22" fill="#6d28d9"/>
+  <text x="672" y="168" font-family="Cairo, sans-serif" font-size="18" font-weight="800" fill="white" text-anchor="middle">3 كتب</text>
+
+  <!-- Notebook / exercise papers beside books -->
+  <rect x="648" y="248" width="100" height="130" rx="6" fill="white" stroke="#d4c9dc" stroke-width="2"/>
+  <!-- Spiral binding -->
+  <rect x="644" y="248" width="8" height="130" rx="4" fill="#c8c0d0"/>
+  <circle cx="648" cy="268" r="4" fill="white" stroke="#b8b0c8" stroke-width="1.5"/>
+  <circle cx="648" cy="288" r="4" fill="white" stroke="#b8b0c8" stroke-width="1.5"/>
+  <circle cx="648" cy="308" r="4" fill="white" stroke="#b8b0c8" stroke-width="1.5"/>
+  <circle cx="648" cy="328" r="4" fill="white" stroke="#b8b0c8" stroke-width="1.5"/>
+  <circle cx="648" cy="348" r="4" fill="white" stroke="#b8b0c8" stroke-width="1.5"/>
+  <!-- Notebook lines (handwritten answers) -->
+  <rect x="664" y="262" width="72" height="5" rx="2" fill="#4a4a6a" opacity="0.12"/>
+  <rect x="664" y="274" width="60" height="5" rx="2" fill="#4a4a6a" opacity="0.10"/>
+  <rect x="664" y="286" width="76" height="5" rx="2" fill="#8b5cf6" opacity="0.20"/>
+  <rect x="664" y="298" width="50" height="5" rx="2" fill="#4a4a6a" opacity="0.10"/>
+  <rect x="664" y="310" width="68" height="5" rx="2" fill="#4a4a6a" opacity="0.08"/>
+  <rect x="664" y="322" width="44" height="5" rx="2" fill="#8b5cf6" opacity="0.15"/>
+  <rect x="664" y="334" width="72" height="5" rx="2" fill="#4a4a6a" opacity="0.08"/>
+  <rect x="664" y="346" width="56" height="5" rx="2" fill="#4a4a6a" opacity="0.08"/>
+
+  <!-- Pen resting on notebook -->
+  <rect x="662" y="382" width="100" height="10" rx="5" fill="#3b82f6" opacity="0.7" transform="rotate(-15, 712, 387)"/>
+  <circle cx="756" cy="377" r="5" fill="#1d4ed8" opacity="0.7"/>
+
+  <!-- Highlighter marks on desk -->
+  <rect x="70" y="396" width="60" height="14" rx="4" fill="#fde68a" opacity="0.8" transform="rotate(-5, 100, 403)"/>
+
+  <!-- Caption -->
+  <rect x="0" y="550" width="800" height="50" fill="#4c1d95" opacity="0.88"/>
+  <text x="400" y="582" font-family="Cairo, sans-serif" font-size="20" font-weight="700" fill="white" text-anchor="middle">مذاكرة ذاتية + محتوى منظم</text>
+</svg>

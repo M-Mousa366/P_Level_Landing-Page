@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+    ══════════════════════════════════════════════════════════════════════
+    BEFORE GOING LIVE — replace every placeholder below:
+
+    CANONICAL_URL_PLACEHOLDER  →  your actual URL, e.g. https://example.com
+    OG_IMAGE_ABSOLUTE_URL      →  absolute URL to og-image.png, e.g. https://example.com/og-image.png
+                                  (must be absolute for social crawlers — relative paths don't work)
+
+    Also:
+    - Replace /og-image.svg with a real 1200×630 PNG or JPEG (see /public/og-image.svg for guide)
+    - Replace /favicon.svg with a branded .ico or high-res .svg
+    - Add /public/apple-touch-icon.png (180×180 PNG) for iOS home screen
+    ══════════════════════════════════════════════════════════════════════
+  -->
+
+  <!-- ── Document ─────────────────────────────────────────────────── -->
+  <title>د. عيسى صبري | تعلم البرمجة وعلوم الحاسب</title>
+  <meta name="description"
+    content="اختار طريقة الدراسة المناسبة ليك: السنتر، Online Live، كتب شيخ البرمجة، أو نادي المبرمجين." />
+
+  <!-- Canonical URL — prevents duplicate-content issues if the page is
+       ever accessible from multiple addresses (www / non-www / http / https) -->
+  <link rel="canonical" href="CANONICAL_URL_PLACEHOLDER" />
+
+  <!-- Mobile browser chrome color — matches brand green -->
+  <meta name="theme-color" content="#0b1929" />
+
+  <!-- ── Favicon & icons ───────────────────────────────────────────── -->
+  <!-- SVG favicon — scales to any size, used by modern browsers -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Fallback PNG favicon for older browsers — add /public/favicon.png (32×32) -->
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" /> -->
+  <!-- iOS home screen icon — add /public/apple-touch-icon.png (180×180) -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /> -->
+
+  <!-- ── Open Graph (Facebook, LinkedIn, WhatsApp, iMessage, etc.) ─── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_EG" />
+  <meta property="og:site_name" content="د. عيسى صبري" />
+  <meta property="og:url" content="CANONICAL_URL_PLACEHOLDER" />
+  <meta property="og:title" content="د. عيسى صبري | تعلم البرمجة وعلوم الحاسب" />
+  <meta property="og:description"
+    content="اختار طريقة الدراسة المناسبة ليك: السنتر، Online Live، كتب شيخ البرمجة، أو نادي المبرمجين." />
+  <!--
+    OG image: must be an absolute URL (social crawlers don't resolve relative paths).
+    File: /public/og-image.png  (1200×630 PNG, generated from og-image.svg)
+    To regenerate: npm run og
+    To deploy: replace OG_IMAGE_ABSOLUTE_URL with https://YOURDOMAIN.com/og-image.png
+  -->
+  <meta property="og:image" content="OG_IMAGE_ABSOLUTE_URL" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="د. عيسى صبري — اختار طريقة الدراسة المناسبة ليك" />
+
+  <!-- ── Twitter / X Card ─────────────────────────────────────────── -->
+  <!-- summary_large_image: shows a large image preview in tweets/posts -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="د. عيسى صبري | تعلم البرمجة وعلوم الحاسب" />
+  <meta name="twitter:description"
+    content="اختار طريقة الدراسة المناسبة ليك: السنتر، Online Live، كتب شيخ البرمجة، أو نادي المبرمجين." />
+  <meta name="twitter:image" content="OG_IMAGE_ABSOLUTE_URL" />
+  <meta name="twitter:image:alt" content="د. عيسى صبري — اختار طريقة الدراسة المناسبة ليك" />
+
+  <!-- ── Fonts ─────────────────────────────────────────────────────── -->
+  <!--
+    Cairo: weights 700/800/900 only (bold/extrabold/black).
+    Weights 400–600 removed — saves ~60 KB the browser no longer fetches.
+    display=swap: text stays visible in the fallback font while Cairo loads.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
