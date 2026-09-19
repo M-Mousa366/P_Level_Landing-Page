@@ -77,7 +77,7 @@ function FallbackVisual({
 }: {
   sys: System;
   Icon: React.ComponentType<{
-    size?: number;
+    size?: string | number;
     className?: string;
   }>;
 }) {
