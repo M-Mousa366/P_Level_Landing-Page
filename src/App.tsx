@@ -1,13 +1,21 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Selector from './components/Selector';
 import SystemDetail from './components/SystemDetail';
 import Footer from './components/Footer';
-import { systems, hashToSystemId, ID_TO_HASH } from './data/systems';
+
+import {
+  systems,
+  hashToSystemId,
+  ID_TO_HASH,
+} from './data/systems';
+
 import type { SystemId } from './data/systems';
 
 // ── Hash management ───────────────────────────────────────────────────────────
+
 function setHash(slug: string) {
   history.pushState(null, '', `${window.location.pathname}#${slug}`);
 }
@@ -20,61 +28,82 @@ export default function App() {
   const [picked, setPicked] = useState<SystemId | null>(null);
   const [showDetail, setShowDetail] = useState(false);
 
-  // Track pending rAF IDs so rapid selection changes don't fire stale scrolls
+  // Track pending animation frames so rapid interactions
+  // don't trigger stale scroll operations.
   const pendingScrollRef = useRef<number[]>([]);
 
-  const cancelPendingScrolls = () => {
+  const cancelPendingScrolls = useCallback(() => {
     pendingScrollRef.current.forEach(cancelAnimationFrame);
     pendingScrollRef.current = [];
-  };
+  }, []);
 
-  // Schedule a scroll, storing the rAF id so it can be cancelled
-  const scheduleScroll = (elementId: string) => {
-    cancelPendingScrolls();
-    const r1 = requestAnimationFrame(() => {
-      const r2 = requestAnimationFrame(() => {
-        document.getElementById(elementId)?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+  // Schedule a scroll after the DOM has updated.
+  const scheduleScroll = useCallback(
+    (elementId: string) => {
+      cancelPendingScrolls();
+
+      const r1 = requestAnimationFrame(() => {
+        const r2 = requestAnimationFrame(() => {
+          document.getElementById(elementId)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+
+          pendingScrollRef.current =
+            pendingScrollRef.current.filter(
+              (id) => id !== r1 && id !== r2
+            );
         });
-        pendingScrollRef.current = pendingScrollRef.current.filter(
-          (id) => id !== r1 && id !== r2
-        );
+
+        pendingScrollRef.current.push(r2);
       });
-      pendingScrollRef.current.push(r2);
-    });
-    pendingScrollRef.current.push(r1);
-  };
 
-  const pickedSys = picked ? (systems.find((s) => s.id === picked) ?? null) : null;
+      pendingScrollRef.current.push(r1);
+    },
+    [cancelPendingScrolls]
+  );
 
-  // ── Deep-link: read hash on mount and on hashchange ──────────────────────
+  const pickedSys = picked
+    ? systems.find((system) => system.id === picked) ?? null
+    : null;
+
+  // ── Deep-link: read hash on mount and on hashchange ────────────────────────
+
   useEffect(() => {
     const activate = (hash: string) => {
       const id = hashToSystemId(hash);
+
       if (id) {
         setPicked(id);
         setShowDetail(true);
-        // Scroll after both state update and DOM render are complete.
-        // Use a slightly longer delay for the initial mount case (deep-link on refresh)
-        // because React needs to render SystemDetail before we can scroll to it.
+
+        // Wait until SystemDetail has rendered before scrolling to it.
         cancelPendingScrolls();
+
         const r1 = requestAnimationFrame(() => {
           const r2 = requestAnimationFrame(() => {
-            // If element isn't in DOM yet (very slow device), try once more
-            const el = document.getElementById('system-detail');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const element =
+              document.getElementById('system-detail');
+
+            if (element) {
+              element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
             }
-            pendingScrollRef.current = pendingScrollRef.current.filter(
-              (rid) => rid !== r1 && rid !== r2
-            );
+
+            pendingScrollRef.current =
+              pendingScrollRef.current.filter(
+                (rid) => rid !== r1 && rid !== r2
+              );
           });
+
           pendingScrollRef.current.push(r2);
         });
+
         pendingScrollRef.current.push(r1);
       } else {
-        // Unrecognised or empty hash — reset without scrolling
+        // Empty or unknown hash.
         setPicked(null);
         setShowDetail(false);
         cancelPendingScrolls();
@@ -83,56 +112,72 @@ export default function App() {
 
     activate(window.location.hash);
 
-    const onHashChange = () => activate(window.location.hash);
+    const onHashChange = () => {
+      activate(window.location.hash);
+    };
+
     window.addEventListener('hashchange', onHashChange);
+
     return () => {
       window.removeEventListener('hashchange', onHashChange);
       cancelPendingScrolls();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [cancelPendingScrolls]);
 
-  // ── Handlers ─────────────────────────────────────────────────────────────
-  const handlePick = useCallback((id: SystemId) => {
-    // Cancel any scroll that was scheduled for the previous selection
-    cancelPendingScrolls();
+  // ── Selection handler ─────────────────────────────────────────────────────
 
-    if (picked === id) {
-      setPicked(null);
-      setShowDetail(false);
-      clearHash();
-    } else {
+  const handlePick = useCallback(
+    (id: SystemId) => {
+      cancelPendingScrolls();
+
+      // Clicking the currently selected system toggles it off.
+      if (picked === id) {
+        setPicked(null);
+        setShowDetail(false);
+        clearHash();
+
+        scheduleScroll('selector');
+        return;
+      }
+
+      // Select the new system.
       setPicked(id);
-      setShowDetail(false);   // detail hidden until user explicitly requests it
+      setShowDetail(true);
       setHash(ID_TO_HASH[id]);
-    }
-    // cancelPendingScrolls is stable (ref-based), no deps needed
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picked]);
 
-  const handleViewDetail = useCallback(() => {
-    setShowDetail(true);
-    scheduleScroll('system-detail');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // Wait for SystemDetail to render, then scroll to it.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document
+            .getElementById('system-detail')
+            ?.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+        });
+      });
+    },
+    [picked, cancelPendingScrolls, scheduleScroll]
+  );
+
+  // ── Reset / choose another system ─────────────────────────────────────────
 
   const handleReset = useCallback(() => {
     cancelPendingScrolls();
+
     setShowDetail(false);
     setPicked(null);
     clearHash();
+
     scheduleScroll('selector');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cancelPendingScrolls, scheduleScroll]);
 
   return (
-    /*
-      Root background is navy-900 — the hero and footer share this dark bg.
-      Light sections (Selector, SystemDetail) override with their own bg classes.
-    */
     <div className="min-h-screen bg-navy-900 font-arabic">
+      {/* Skip navigation */}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] btn-primary text-sm"
+        className="sr-only focus:not-sr-only focus:fixed focus:right-3 focus:top-3 focus:z-[100] btn-primary text-sm"
       >
         تخطى للمحتوى الرئيسي
       </a>
@@ -141,18 +186,24 @@ export default function App() {
 
       <main id="main">
         <Hero />
+
         <Selector
           picked={picked}
           onPick={handlePick}
-          onViewDetail={handleViewDetail}
-          showDetail={showDetail}
         />
+
         {showDetail && pickedSys && (
-          <SystemDetail sys={pickedSys} onReset={handleReset} />
+          <SystemDetail
+            sys={pickedSys}
+            onReset={handleReset}
+          />
         )}
       </main>
 
-      <Footer hasPick={!!picked} pickedSys={pickedSys} />
+      <Footer
+        hasPick={!!picked}
+        pickedSys={pickedSys}
+      />
     </div>
   );
 }

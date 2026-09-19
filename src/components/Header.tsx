@@ -5,153 +5,184 @@ import { CONTACT } from '../data/systems';
 export default function Header() {
   const [open, setOpen] = useState(false);
   const openRef = useRef(open);
+
   openRef.current = open;
 
   useEffect(() => {
-    const close = () => { if (window.innerWidth >= 768 && openRef.current) setOpen(false); };
-    window.addEventListener('resize', close);
-    return () => window.removeEventListener('resize', close);
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && openRef.current) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [open]);
 
   const scrollTo = useCallback((id: string) => {
     setOpen(false);
+
     requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById(id)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     });
   }, []);
 
-  const toggle = useCallback(() => setOpen((v) => !v), []);
+  const toggle = useCallback(() => {
+    setOpen((value) => !value);
+  }, []);
+
   const whatsappReady = CONTACT.whatsapp.startsWith('https://');
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 bg-navy-900/95 backdrop-blur-sm border-b border-white/[0.06]"
+      className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-navy-900/95 backdrop-blur-md"
       role="banner"
     >
-      {/* Header uses its own container — tighter edge padding so brand/CTA sit close to edges */}
-      <div className="max-w-wrap mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[64px]">
-
-          {/* Brand — sits at the natural RTL start (right edge) */}
+      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-7 lg:px-10">
+        <div className="flex h-[76px] items-center justify-between">
+          {/* Brand */}
           <a
             href="/"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center gap-3 group focus:outline-none rounded-lg py-1 min-w-0 shrink-0"
+            onClick={(event) => {
+              event.preventDefault();
+              setOpen(false);
+
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+              });
+            }}
+            className="group flex min-w-0 shrink-0 items-center gap-3 rounded-xl py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             aria-label="منصة الدكتور عيسى صبري المتولي — الرئيسية"
           >
-            {/* Logo — bigger, clearly rounded */}
+            {/* Brand image */}
+            <div className="flex h-[54px] w-[104px] shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-white">
             <img
               src="/images/eissa-wordmark.png"
               alt="شعار د. عيسى صبري"
-              className="h-10 w-auto object-contain shrink-0 rounded-xl"
+              className="h-full w-full object-contain"
               loading="eager"
               decoding="async"
             />
-            {/* Full name on md+ */}
-            <div className="hidden md:block leading-none min-w-0">
-              <span className="block font-extrabold text-white text-[15px] leading-snug group-hover:text-brand transition-colors duration-150 whitespace-nowrap">
-                منصة الدكتور عيسى صبري المتولي
-              </span>
-              <span className="block text-[12px] text-brand font-semibold mt-1 leading-none">
-                ونادي المبرمجين
-              </span>
+          </div>
+
+            {/* Brand text */}
+            <div className="hidden min-w-0 sm:block">
+             <span className="block whitespace-nowrap text-[15px] font-[800] leading-[1.35] text-white">
+              منصة الدكتور عيسى صبري المتولي
+            </span>
+
+              <span className="mt-0.5 block whitespace-nowrap text-[15px] font-[800] leading-[1.3] text-brand">
+              ونادي المبرمجين
+            </span>
             </div>
-            {/* Compact on sm */}
-            <div className="hidden sm:block md:hidden leading-none min-w-0">
-              <span className="block font-extrabold text-white text-sm leading-snug group-hover:text-brand transition-colors duration-150">
-                د. عيسى صبري
-              </span>
-              <span className="block text-[11px] text-brand font-semibold mt-0.5 leading-none">
-                نادي المبرمجين
-              </span>
-            </div>
-            {/* Logo only on xs */}
           </a>
 
-          {/* Empty space fills the middle automatically via justify-between */}
-
-          {/* Desktop CTA — sits at the natural RTL end (left edge) */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
+          {/* Desktop actions */}
+          <nav
+            className="hidden shrink-0 items-center gap-2 md:flex"
+            aria-label="التنقل الرئيسي"
+          >
             <button
+              type="button"
               onClick={() => scrollTo('selector')}
-              className="text-sm font-medium text-white/60 hover:text-white px-4 py-2 rounded-lg
-                hover:bg-white/5 transition-colors duration-150
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="rounded-xl px-4 py-2.5 text-sm font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
               اختار نظامك
             </button>
+
             {whatsappReady ? (
               <a
                 href={CONTACT.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary text-sm px-5 min-h-[42px] py-2.5"
+                className="btn-primary min-h-[44px] px-5 text-sm"
               >
-                <MessageCircle size={14} aria-hidden="true" />
+                <MessageCircle size={15} aria-hidden="true" />
                 تواصل معنا
               </a>
             ) : (
-              <button disabled className="btn-primary text-sm px-5 min-h-[42px] py-2.5 opacity-40 cursor-not-allowed">
-                <MessageCircle size={14} aria-hidden="true" />
+              <button
+                type="button"
+                disabled
+                className="btn-primary min-h-[44px] cursor-not-allowed px-5 text-sm opacity-40"
+              >
+                <MessageCircle size={15} aria-hidden="true" />
                 تواصل معنا
               </button>
             )}
-          </div>
+          </nav>
 
-          {/* Mobile toggle */}
+          {/* Mobile menu */}
           <button
+            type="button"
             onClick={toggle}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg
-              text-white/60 hover:text-white hover:bg-white/5
-              transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand shrink-0"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand md:hidden"
             aria-label={open ? 'إغلاق القائمة' : 'فتح القائمة'}
             aria-expanded={open}
             aria-controls="mobile-menu"
           >
-            {open ? <X size={20} /> : <Menu size={20} />}
+            {open ? <X size={21} /> : <Menu size={21} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile menu */}
       <div
         id="mobile-menu"
-        className={`md:hidden overflow-hidden transition-all duration-200 ${open ? 'max-h-52 opacity-100' : 'max-h-0 opacity-0'
-          }`}
+        className={`overflow-hidden transition-all duration-200 md:hidden ${
+          open ? 'max-h-56 opacity-100' : 'max-h-0 opacity-0'
+        }`}
         aria-hidden={open ? undefined : true}
       >
-        <div className="bg-navy-800 border-t border-white/[0.06] px-5 py-4 space-y-2">
-          <button
-            onClick={() => scrollTo('selector')}
-            className="w-full text-right px-4 py-3 text-white/80 hover:text-white
-              hover:bg-white/5 rounded-lg text-base font-medium min-h-[48px]
-              transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-            tabIndex={open ? 0 : -1}
-          >
-            اختار نظامك
-          </button>
-          {whatsappReady ? (
-            <a
-              href={CONTACT.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary w-full"
+        <div className="border-t border-white/[0.08] bg-navy-800 px-5 py-4">
+          <div className="space-y-2">
+            <button
+              type="button"
+              onClick={() => scrollTo('selector')}
+              className="min-h-[48px] w-full rounded-xl px-4 py-3 text-right text-base font-semibold text-white/80 transition-colors hover:bg-white/5 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               tabIndex={open ? 0 : -1}
             >
-              <MessageCircle size={15} aria-hidden="true" />
-              تواصل معنا
-            </a>
-          ) : (
-            <button disabled className="btn-primary w-full opacity-40 cursor-not-allowed" tabIndex={open ? 0 : -1}>
-              <MessageCircle size={15} aria-hidden="true" />
-              تواصل معنا
+              اختار نظامك
             </button>
-          )}
+
+            {whatsappReady ? (
+              <a
+                href={CONTACT.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary w-full"
+                tabIndex={open ? 0 : -1}
+              >
+                <MessageCircle size={15} aria-hidden="true" />
+                تواصل معنا
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="btn-primary w-full cursor-not-allowed opacity-40"
+                tabIndex={open ? 0 : -1}
+              >
+                <MessageCircle size={15} aria-hidden="true" />
+                تواصل معنا
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </header>

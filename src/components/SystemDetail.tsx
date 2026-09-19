@@ -1,5 +1,12 @@
-import { useState } from 'react';
-import { CheckCircle, MessageCircle, ArrowRight, ChevronDown, ExternalLink } from 'lucide-react';
+import {
+  MessageCircle,
+  ArrowRight,
+  CheckCircle,
+  ClipboardCheck,
+  PackageCheck,
+  Info,
+} from 'lucide-react';
+
 import type { System } from '../data/systems';
 import { buildWhatsAppUrl } from '../data/systems';
 import SystemVisual from './SystemVisual';
@@ -10,199 +17,292 @@ interface Props {
 }
 
 export default function SystemDetail({ sys, onReset }: Props) {
-  const [expanded, setExpanded] = useState(false);
   const bookingUrl = buildWhatsAppUrl(sys.whatsappMessage);
   const isConfigured = bookingUrl !== 'WHATSAPP_LINK_PLACEHOLDER';
 
   return (
     <section
       id="system-detail"
-      className="bg-surface"
+      className="bg-surface font-arabic"
       aria-labelledby="detail-heading"
     >
-      <div className="wrap py-10 sm:py-14 lg:py-16">
+      <div className="wrap px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
 
-        {/* Back nav */}
-        <div className="mb-8 sm:mb-10">
-          <button onClick={onReset} className="nav-back">
-            <ArrowRight size={14} aria-hidden="true" />
-            <span>اختار طريقة تانية</span>
-          </button>
-        </div>
+        {/* ─────────────────────────────────────────────
+            System Introduction
+        ───────────────────────────────────────────── */}
 
-        {/* Two-column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[48fr_52fr] gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 items-center gap-9 lg:grid-cols-[47fr_53fr] lg:gap-14">
 
           {/* Visual */}
           <div className="order-1">
             <SystemVisual sys={sys} />
           </div>
 
-          {/* Info column */}
-          <div className="order-2 flex flex-col gap-6">
+          {/* Intro */}
+          <div className="order-2">
 
-            {/* ── Identity ── */}
-            <div>
-              <div
-                className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border-2 ${sys.accent.tag} mb-4`}
+            {/* System title */}
+            <div className="mb-4 flex items-center gap-3">
+              <span
+                className={`h-9 w-1 shrink-0 rounded-full ${sys.accent.dot}`}
                 aria-hidden="true"
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${sys.accent.dot}`} />
-                النظام الأنسب ليك
-              </div>
+              />
+
               <h2
                 id="detail-heading"
-                className="text-2xl sm:text-[1.9rem] font-black text-text leading-tight tracking-tight mb-2"
+                className="text-[2rem] font-[700] leading-[1.3] tracking-tight text-text sm:text-[2.35rem]"
               >
                 {sys.title}
               </h2>
-              <p className={`text-sm font-semibold ${sys.accent.text} mb-3`}>
-                {sys.tagline}
-              </p>
-              <p className="text-base text-text-secondary font-normal leading-relaxed">
-                {sys.whyItFits}
-              </p>
             </div>
 
-            {/* ── CTAs ── */}
-            <div className="flex flex-col gap-2.5">
-              {isConfigured ? (
-                <a
-                  href={bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary w-full justify-center"
-                  aria-label={`تواصل على واتساب للحجز في ${sys.title}`}
-                >
-                  <MessageCircle size={17} aria-hidden="true" />
-                  تواصل للحجز عبر واتساب
-                </a>
-              ) : (
-                <button disabled className="btn-primary w-full justify-center opacity-40 cursor-not-allowed">
-                  <MessageCircle size={17} aria-hidden="true" />
-                  تواصل للحجز عبر واتساب
-                </button>
-              )}
-
-              {sys.id === 'club' && (
-                <a
-                  href="https://progclub.eissasabry.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost w-full justify-center"
-                  aria-label="افتح منصة نادي المبرمجين"
-                >
-                  <ExternalLink size={15} aria-hidden="true" />
-                  افتح المنصة
-                </a>
-              )}
-
-              <p className="text-xs text-center text-text-muted font-normal" aria-hidden="true">
-                {isConfigured
-                  ? `هيفتح واتساب برسالة جاهزة عن ${sys.title}`
-                  : 'سيتم تفعيل واتساب قريباً'}
-              </p>
-            </div>
-
-            {/* Divider */}
-            <div className="border-t border-border" aria-hidden="true" />
-
-            {/* ── مناسب ليك لو ── */}
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <span className={`w-1.5 h-1.5 rounded-full ${sys.accent.dot} shrink-0`} aria-hidden="true" />
-                <span className="label text-text-secondary">مناسب ليك لو</span>
-              </div>
-              <ul className="space-y-3">
-                {sys.suitableIf.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <div
-                      className={`w-5 h-5 rounded-full ${sys.accent.iconBg} flex items-center justify-center shrink-0 mt-[2px]`}
-                      aria-hidden="true"
-                    >
-                      <CheckCircle size={11} className={sys.accent.text} />
-                    </div>
-                    <span className="text-base text-text-secondary font-normal leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* ── يشمل ── */}
-            <div className={`${sys.accent.bg} border-2 ${sys.accent.border} rounded-xl p-5`}>
-              <div className="flex items-center gap-2 mb-4">
-                <span className={`w-1.5 h-1.5 rounded-full ${sys.accent.dot} shrink-0`} aria-hidden="true" />
-                <span className="label text-text-secondary">يشمل</span>
-              </div>
-              <ul className="space-y-2.5">
-                {sys.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className={`w-1.5 h-1.5 rounded-full ${sys.accent.dot} shrink-0 mt-[8px]`} aria-hidden="true" />
-                    <span className="text-sm text-text-secondary font-normal leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* ── Pricing ── */}
-            <p className="text-sm text-text-muted font-normal">
-              <span className="font-semibold text-text-secondary">التسعير: </span>
-              {sys.pricingNote}
+            {/* Tagline */}
+            <p
+              className={`max-w-2xl text-[17px] font-[600] leading-[1.85] ${sys.accent.text} sm:text-[18px]`}
+            >
+              {sys.tagline}
             </p>
 
-            {/* ── Progressive disclosure ── */}
-            {sys.details.length > 0 && (
-              <div className="border border-border rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setExpanded((v) => !v)}
-                  aria-expanded={expanded}
-                  aria-controls={`details-${sys.id}`}
-                  className="w-full flex items-center justify-between gap-3 px-5 py-3.5 text-right
-                    min-h-[52px] bg-surface hover:bg-base/60 transition-colors duration-150
-                    focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                >
-                  <span className="text-sm font-semibold text-text-secondary">
-                    {expanded ? 'إخفاء التفاصيل' : 'تفاصيل إضافية'}
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    aria-hidden="true"
-                    className={`text-text-muted shrink-0 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                <div
-                  className={`transition-[max-height] duration-300 ease-in-out overflow-hidden ${expanded ? 'max-h-96' : 'max-h-0'}`}
-                  inert={expanded ? undefined : ''}
-                >
-                  <div
-                    id={`details-${sys.id}`}
-                    role="region"
-                    aria-label={`تفاصيل إضافية عن ${sys.title}`}
-                    className="px-5 pb-5 pt-3 border-t border-border"
-                  >
-                    <ul className="space-y-3">
-                      {sys.details.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <span className="w-1.5 h-1.5 rounded-full bg-text-muted shrink-0 mt-[8px]" aria-hidden="true" />
-                          <span className="text-sm text-text-secondary font-normal leading-relaxed">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-
+            {/* Explanation */}
+            <p className="mt-4 max-w-2xl text-[16px] font-[500] leading-[2] text-text-secondary sm:text-[17px]">
+              {sys.whyItFits}
+            </p>
           </div>
+        </div>
+
+        {/* ─────────────────────────────────────────────
+            Information Sections
+        ───────────────────────────────────────────── */}
+
+        <div className="mt-11 grid grid-cols-1 gap-9 border-t border-border pt-10 sm:mt-13 sm:pt-11 lg:grid-cols-2 lg:gap-x-14 lg:gap-y-10">
+
+          {/* Suitable For */}
+          <div>
+            <SectionHeading
+              icon={ClipboardCheck}
+              title="مناسب ليك لو"
+              accent={sys.accent}
+            />
+
+            <ul className="mt-5 space-y-4">
+              {sys.suitableIf.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3"
+                >
+                  <span
+                    className={`mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${sys.accent.iconBg}`}
+                    aria-hidden="true"
+                  >
+                    <CheckCircle
+                      size={12}
+                      strokeWidth={2.8}
+                      className={sys.accent.text}
+                    />
+                  </span>
+
+                  <span className="text-[16px] font-[500] leading-[1.9] text-text-secondary sm:text-[17px]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Includes */}
+          <div>
+            <SectionHeading
+              icon={PackageCheck}
+              title="إيه اللي هتحصل عليه؟"
+              accent={sys.accent}
+            />
+
+            <ul className="mt-5 space-y-4">
+              {sys.includes.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3"
+                >
+                  <span
+                    className={`mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full ${sys.accent.dot}`}
+                    aria-hidden="true"
+                  />
+
+                  <span className="text-[16px] font-[500] leading-[1.9] text-text-secondary sm:text-[17px]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Important Details */}
+          {sys.details.length > 0 && (
+            <div className="lg:col-span-2">
+              <div
+                className={`rounded-2xl border ${sys.accent.border} ${sys.accent.bg} px-5 py-5 sm:px-6 sm:py-6`}
+              >
+                <SectionHeading
+                  icon={Info}
+                  title="تفاصيل مهمة"
+                  accent={sys.accent}
+                />
+
+                <ul className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3.5 sm:grid-cols-2">
+                  {sys.details.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3"
+                    >
+                      <span
+                        className={`mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full ${sys.accent.dot}`}
+                        aria-hidden="true"
+                      />
+
+                      <span className="text-[15px] font-[500] leading-[1.9] text-text-secondary sm:text-[16px]">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ─────────────────────────────────────────────
+            Final CTA
+        ───────────────────────────────────────────── */}
+
+        <div className="mx-auto mt-11 max-w-xl text-center sm:mt-12">
+
+          <h3 className="text-[20px] font-[700] leading-tight text-text sm:text-[21px]">
+            مهتم بالنظام ده؟
+          </h3>
+
+          <p
+  className="mt-2.5 text-[15px] font-[500] leading-[1.8] sm:text-[16px]"
+  style={{ color: '#64748B' }}
+>
+  تواصل مع الإدارة لمعرفة التفاصيل المتاحة والحجز.
+</p>
+
+          <div className="mt-5">
+            {isConfigured ? (
+              <a
+                href={bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary min-h-[50px] w-full justify-center px-7 text-base font-[700] sm:w-auto"
+                aria-label={`تواصل على واتساب للحجز في ${sys.title}`}
+              >
+                <MessageCircle
+                  size={17}
+                  aria-hidden="true"
+                />
+
+                تواصل للحجز عبر واتساب
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="btn-primary min-h-[50px] w-full cursor-not-allowed justify-center px-7 text-base font-[700] opacity-40 sm:w-auto"
+              >
+                <MessageCircle
+                  size={17}
+                  aria-hidden="true"
+                />
+
+                تواصل للحجز عبر واتساب
+              </button>
+            )}
+          </div>
+
+          {/* Club Platform */}
+          {sys.id === 'club' && (
+            <a
+              href="https://progclub.eissasabry.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-[700] text-text-secondary transition-colors duration-150 hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              aria-label="افتح منصة نادي المبرمجين"
+            >
+              <span>
+                أو استكشف منصة نادي المبرمجين
+              </span>
+
+              <ArrowRight
+                size={15}
+                aria-hidden="true"
+                className="rotate-180"
+              />
+            </a>
+          )}
+        </div>
+
+        {/* ─────────────────────────────────────────────
+            Choose Another System
+        ───────────────────────────────────────────── */}
+
+        <div className="mt-9 flex justify-center border-t border-border pt-7 sm:mt-10 sm:pt-8">
+          <button
+            type="button"
+            onClick={onReset}
+            className="group inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-5 py-2.5 text-sm font-[700] text-text-secondary transition-all duration-200 hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          >
+            <ArrowRight
+              size={15}
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:-translate-x-0.5"
+            />
+
+            اختار طريقة تانية
+          </button>
         </div>
       </div>
 
-      {/* Section base — curves into dark footer */}
+      {/* Section transition */}
       <div
-        className="h-10 sm:h-14 bg-navy-900"
-        style={{ borderRadius: '28px 28px 0 0' }}
+        className="h-10 rounded-t-[28px] bg-navy-900 sm:h-14"
         aria-hidden="true"
       />
     </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Section Heading
+───────────────────────────────────────────── */
+
+interface SectionHeadingProps {
+  icon: typeof ClipboardCheck;
+  title: string;
+  accent: System['accent'];
+}
+
+function SectionHeading({
+  icon: Icon,
+  title,
+  accent,
+}: SectionHeadingProps) {
+  return (
+    <div className="flex items-center gap-3">
+      <div
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${accent.iconBg}`}
+        aria-hidden="true"
+      >
+        <Icon
+          size={18}
+          strokeWidth={2.2}
+          className={accent.text}
+        />
+      </div>
+
+      <h3 className="text-[18px] font-[700] leading-tight text-text sm:text-[19px]">
+        {title}
+      </h3>
+    </div>
   );
 }

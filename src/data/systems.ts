@@ -59,7 +59,7 @@ export const systems: System[] = [
     pricingNote: 'السعر بيختلف حسب السنتر — تواصل للاستفسار',
     whatsappMessage:
       'السلام عليكم، أنا مهتم بنظام الحضور في السنتر لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بالتفاصيل والمواعيد المتاحة؟',
-    imageSrc: '/images/center/classroom-session.svg',
+    imageSrc: '/images/center/center.png',
     imageAlt: 'طالب يحضر حصة في السنتر مع المدرس',
     accent: {
       bg: 'bg-sys1-bg',
@@ -97,7 +97,7 @@ export const systems: System[] = [
     pricingNote: 'للاستفسار عن تكلفة الاشتراك',
     whatsappMessage:
       'السلام عليكم، أنا مهتم بنظام Online Live لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بتفاصيل الاشتراك والمواعيد؟',
-    imageSrc: '/images/online/home-live-session.svg',
+    imageSrc: '/images/online/Meet_vs._Zoom.png',
     imageAlt: 'طالب يحضر حصة أونلاين من البيت',
     accent: {
       bg: 'bg-sys2-bg',
@@ -134,7 +134,7 @@ export const systems: System[] = [
     pricingNote: 'للاستفسار عن السعر وطريقة الحصول على الحزمة',
     whatsappMessage:
       'السلام عليكم، أنا مهتم بحزمة كتب شيخ البرمجة لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بالسعر وطريقة الحصول على الحزمة؟',
-    imageSrc: '/images/books/programming-books-bundle.svg',
+    imageSrc: '/images/books/Books.png',
     imageAlt: 'حزمة كتب شيخ البرمجة الثلاثة',
     accent: {
       bg: 'bg-sys3-bg',

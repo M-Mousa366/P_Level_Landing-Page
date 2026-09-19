@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        arabic: ['Cairo', 'sans-serif'],
+        sans: ['"Segoe UI"', 'Tahoma', 'Arial', 'sans-serif'],
       },
 
       fontSize: {

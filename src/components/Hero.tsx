@@ -1,94 +1,93 @@
 import { ArrowDown } from 'lucide-react';
 
-const pills = [
-  'الحضور في السنتر',
-  'Online Live',
-  'كتب شيخ البرمجة',
-  'نادي المبرمجين',
-];
-
 export default function Hero() {
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <section
-      className="relative bg-navy-900 pt-[60px] overflow-hidden"
+      className="relative overflow-hidden bg-navy-900 pt-[76px]"
       aria-labelledby="hero-heading"
     >
-      {/* Subtle background texture */}
+      {/* Subtle brand atmosphere */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <div className="absolute -right-40 top-0 h-[420px] w-[420px] rounded-full bg-brand/[0.055] blur-3xl" />
+        <div className="absolute -left-40 bottom-0 h-[360px] w-[360px] rounded-full bg-navy-500/[0.14] blur-3xl" />
+      </div>
+
+      {/* Very subtle grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.018]"
+        aria-hidden="true"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 30% 50%, #00c896 0%, transparent 60%), radial-gradient(circle at 80% 20%, #3d6a8a 0%, transparent 50%)',
+            'linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
         }}
-        aria-hidden="true"
       />
 
-      <div className="wrap relative z-10 py-16 sm:py-24 lg:py-28">
-        <div className="max-w-[600px] mx-auto text-center">
-
-          {/* Label */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand" aria-hidden="true" />
-            <span className="label">البرمجة وعلوم الحاسب — المرحلة الثانوية</span>
+      <div className="wrap relative z-10">
+        <div className="mx-auto max-w-[820px] px-4 py-20 text-center sm:px-6 sm:py-24 lg:py-28">
+          {/* Eyebrow */}
+          <div className="mb-7">
+            <span className="text-sm font-semibold text-brand sm:text-[15px]">
+              البرمجة وعلوم الحاسب — المرحلة الثانوية
+            </span>
           </div>
 
-          {/* H1 */}
+          {/* Main heading */}
           <h1
             id="hero-heading"
-            className="text-[2.2rem] sm:text-5xl lg:text-6xl font-black text-white leading-[1.2] mb-6 tracking-tight"
+            className="mx-auto max-w-[780px] text-[2.35rem] font-[700] leading-[1.3] tracking-tight text-white sm:text-5xl lg:text-[3.65rem]"
           >
             اختار طريقة الدراسة
-            <span className="block text-brand mt-1">المناسبة ليك.</span>
+            <span className="mt-1.5 block text-brand">
+              المناسبة ليك.
+            </span>
           </h1>
 
-          {/* Sub */}
-          <p className="text-base sm:text-lg text-white/60 font-normal leading-relaxed mb-10 max-w-[420px] mx-auto">
-            4 طرق مختلفة لتعلم البرمجة وعلوم الحاسب — اختار اللي يناسب أسلوبك واحتياجاتك.
+          {/* Supporting text */}
+          <p className="mx-auto mt-6 max-w-[620px] text-base font-normal leading-[1.9] text-white/65 sm:text-[17px] lg:text-lg">
+            قدامك أكتر من طريقة لدراسة البرمجة وعلوم الحاسب.
+            <br className="hidden sm:block" />
+            اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
           </p>
 
-          {/* CTA */}
-          <button
-            onClick={() => scrollTo('selector')}
-            className="btn-primary px-10 text-base mb-10"
-          >
-            ساعدني أختار
-            <ArrowDown size={17} aria-hidden="true" />
-          </button>
-
-          {/* 4 system pills — scannable anchor */}
-          <div
-            className="flex flex-wrap justify-center gap-2"
-            aria-label="الأنظمة المتاحة"
-          >
-            {pills.map((name) => (
-              <button
-                key={name}
-                onClick={() => scrollTo('selector')}
-                className="text-xs font-medium text-white/40 hover:text-white/70
-                  border border-white/10 hover:border-white/20
-                  px-3 py-1.5 rounded-full transition-colors duration-150
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-              >
-                {name}
-              </button>
-            ))}
+          {/* Primary CTA */}
+          <div className="mt-9 flex justify-center">
+            <button
+              type="button"
+              onClick={() => scrollTo('selector')}
+              className="btn-primary min-h-[48px] min-w-[190px] px-7 text-base font-[700] shadow-[0_10px_30px_rgba(0,200,150,0.14)]"
+            >
+              ساعدني أختار
+              <ArrowDown size={17} aria-hidden="true" />
+            </button>
           </div>
-
         </div>
       </div>
 
-      {/* Section break — curved base */}
-      <div className="relative h-14 sm:h-20" aria-hidden="true">
+      {/* Section transition */}
+      <div
+        className="relative h-10 sm:h-14"
+        aria-hidden="true"
+      >
         <svg
-          viewBox="0 0 1200 80"
+          viewBox="0 0 1200 70"
           preserveAspectRatio="none"
-          className="absolute inset-0 w-full h-full"
-          aria-hidden="true"
+          className="absolute inset-0 h-full w-full"
         >
-          <path d="M0,80 L0,0 Q600,80 1200,0 L1200,80 Z" fill="#eef2f7" />
+          <path
+            d="M0,70 L0,20 Q600,70 1200,20 L1200,70 Z"
+            fill="#eef2f7"
+          />
         </svg>
       </div>
     </section>
