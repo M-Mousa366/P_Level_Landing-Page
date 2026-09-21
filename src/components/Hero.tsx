@@ -10,19 +10,20 @@ export default function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden bg-navy-900 pt-[76px]"
+      className="relative overflow-hidden bg-navy-900 pt-[74px]"
       aria-labelledby="hero-heading"
     >
-      {/* Subtle brand atmosphere */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute -right-40 top-0 h-[420px] w-[420px] rounded-full bg-brand/[0.055] blur-3xl" />
-        <div className="absolute -left-40 bottom-0 h-[360px] w-[360px] rounded-full bg-navy-500/[0.14] blur-3xl" />
+        <div className="absolute -right-32 -top-28 h-[440px] w-[440px] rounded-full bg-brand/[0.065] blur-3xl" />
+
+        <div className="absolute -left-44 bottom-[-120px] h-[430px] w-[430px] rounded-full bg-navy-500/[0.11] blur-3xl" />
+
+        <div className="absolute left-1/2 top-[22%] h-[260px] w-[520px] -translate-x-1/2 rounded-full bg-white/[0.012] blur-3xl" />
       </div>
 
-      {/* Very subtle grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.018]"
         aria-hidden="true"
@@ -34,47 +35,47 @@ export default function Hero() {
       />
 
       <div className="wrap relative z-10">
-        <div className="mx-auto max-w-[820px] px-4 py-20 text-center sm:px-6 sm:py-24 lg:py-28">
-          {/* Eyebrow */}
-          <div className="mb-7">
-            <span className="text-sm font-semibold text-brand sm:text-[15px]">
-              البرمجة وعلوم الحاسب — المرحلة الثانوية
+        <div className="mx-auto max-w-[850px] px-4 pb-20 pt-20 text-center sm:px-6 sm:pb-24 sm:pt-24 lg:pb-28 lg:pt-28">
+          <div className="mb-7 inline-flex items-center rounded-full border border-brand/20 bg-brand/[0.055] px-4 py-2">
+            <span className="text-[13px] font-[700] tracking-wide text-brand sm:text-sm">
+              طلاب البكالوريا (عربي - لغات)
             </span>
           </div>
 
-          {/* Main heading */}
           <h1
             id="hero-heading"
-            className="mx-auto max-w-[780px] text-[2.35rem] font-[700] leading-[1.3] tracking-tight text-white sm:text-5xl lg:text-[3.65rem]"
+            className="mx-auto max-w-[800px] text-[2.35rem] font-[700] leading-[1.28] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.7rem]"
           >
             اختار طريقة الدراسة
-            <span className="mt-1.5 block text-brand">
+            <span className="mt-2 block text-brand">
               المناسبة ليك.
             </span>
           </h1>
 
-          {/* Supporting text */}
-          <p className="mx-auto mt-6 max-w-[620px] text-base font-normal leading-[1.9] text-white/65 sm:text-[17px] lg:text-lg">
+          <p className="mx-auto mt-6 max-w-[650px] text-[16px] font-[400] leading-[1.95] text-white/65 sm:text-[17px] lg:text-[18px]">
             قدامك أكتر من طريقة لدراسة البرمجة وعلوم الحاسب.
             <br className="hidden sm:block" />
             اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
           </p>
 
-          {/* Primary CTA */}
           <div className="mt-9 flex justify-center">
             <button
               type="button"
               onClick={() => scrollTo('selector')}
-              className="btn-primary min-h-[48px] min-w-[190px] px-7 text-base font-[700] shadow-[0_10px_30px_rgba(0,200,150,0.14)]"
+              className="group inline-flex min-h-[50px] min-w-[196px] items-center justify-center gap-2 rounded-lg bg-[#5ACFC8] px-7 text-[15px] font-[800] text-white shadow-[0_6px_18px_rgba(101,221,213,0.10)] transition-all duration-200 hover:bg-[#50C2BB] hover:shadow-[0_8px_22px_rgba(101,221,213,0.13)] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
             >
               ساعدني أختار
-              <ArrowDown size={17} aria-hidden="true" />
+              <ArrowDown
+                size={17}
+                strokeWidth={2.3}
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-y-0.5"
+              />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Section transition */}
       <div
         className="relative h-10 sm:h-14"
         aria-hidden="true"

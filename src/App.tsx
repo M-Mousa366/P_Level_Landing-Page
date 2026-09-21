@@ -14,8 +14,6 @@ import {
 
 import type { SystemId } from './data/systems';
 
-// ── Hash management ───────────────────────────────────────────────────────────
-
 function setHash(slug: string) {
   history.pushState(null, '', `${window.location.pathname}#${slug}`);
 }
@@ -28,8 +26,6 @@ export default function App() {
   const [picked, setPicked] = useState<SystemId | null>(null);
   const [showDetail, setShowDetail] = useState(false);
 
-  // Track pending animation frames so rapid interactions
-  // don't trigger stale scroll operations.
   const pendingScrollRef = useRef<number[]>([]);
 
   const cancelPendingScrolls = useCallback(() => {
@@ -37,7 +33,6 @@ export default function App() {
     pendingScrollRef.current = [];
   }, []);
 
-  // Schedule a scroll after the DOM has updated.
   const scheduleScroll = useCallback(
     (elementId: string) => {
       cancelPendingScrolls();
@@ -67,8 +62,6 @@ export default function App() {
     ? systems.find((system) => system.id === picked) ?? null
     : null;
 
-  // ── Deep-link: read hash on mount and on hashchange ────────────────────────
-
   useEffect(() => {
     const activate = (hash: string) => {
       const id = hashToSystemId(hash);
@@ -77,7 +70,6 @@ export default function App() {
         setPicked(id);
         setShowDetail(true);
 
-        // Wait until SystemDetail has rendered before scrolling to it.
         cancelPendingScrolls();
 
         const r1 = requestAnimationFrame(() => {
@@ -103,7 +95,6 @@ export default function App() {
 
         pendingScrollRef.current.push(r1);
       } else {
-        // Empty or unknown hash.
         setPicked(null);
         setShowDetail(false);
         cancelPendingScrolls();
@@ -124,13 +115,10 @@ export default function App() {
     };
   }, [cancelPendingScrolls]);
 
-  // ── Selection handler ─────────────────────────────────────────────────────
-
   const handlePick = useCallback(
     (id: SystemId) => {
       cancelPendingScrolls();
 
-      // Clicking the currently selected system toggles it off.
       if (picked === id) {
         setPicked(null);
         setShowDetail(false);
@@ -140,27 +128,14 @@ export default function App() {
         return;
       }
 
-      // Select the new system.
       setPicked(id);
       setShowDetail(true);
       setHash(ID_TO_HASH[id]);
 
-      // Wait for SystemDetail to render, then scroll to it.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          document
-            .getElementById('system-detail')
-            ?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-        });
-      });
+      scheduleScroll('system-detail');
     },
     [picked, cancelPendingScrolls, scheduleScroll]
   );
-
-  // ── Reset / choose another system ─────────────────────────────────────────
 
   const handleReset = useCallback(() => {
     cancelPendingScrolls();
@@ -174,7 +149,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-navy-900 font-arabic">
-      {/* Skip navigation */}
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:right-3 focus:top-3 focus:z-[100] btn-primary text-sm"
@@ -194,6 +168,7 @@ export default function App() {
 
         {showDetail && pickedSys && (
           <SystemDetail
+            key={pickedSys.id}
             sys={pickedSys}
             onReset={handleReset}
           />

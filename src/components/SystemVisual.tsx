@@ -21,6 +21,13 @@ const IMAGE_SOURCES = {
   club: '/images/platform/progclub.png',
 } as const;
 
+const IMAGE_MAX_HEIGHTS = {
+  center: 'max-h-[330px]',
+  'online-live': 'max-h-[390px]',
+  books: 'max-h-[330px]',
+  club: 'max-h-[500px]',
+} as const;
+
 export default function SystemVisual({
   sys,
 }: SystemVisualProps) {
@@ -28,34 +35,19 @@ export default function SystemVisual({
 
   const Icon = ICONS[sys.id];
   const imageSrc = IMAGE_SOURCES[sys.id];
+  const imageMaxHeight = IMAGE_MAX_HEIGHTS[sys.id];
 
   return (
     <figure
-      className="relative overflow-hidden rounded-2xl border border-border bg-white"
+      className="flex w-full items-center justify-center"
       aria-label={sys.imageAlt}
     >
-      {/* Fixed visual area */}
-      <div
-        className="
-          flex
-          h-[280px]
-          w-full
-          items-center
-          justify-center
-          overflow-hidden
-          bg-[#f8fafc]
-          p-4
-          sm:h-[340px]
-          sm:p-5
-          lg:h-[390px]
-          lg:p-6
-        "
-      >
+      <div className="flex w-full items-center justify-center">
         {!imageError ? (
           <img
             src={imageSrc}
             alt={sys.imageAlt}
-            className="block max-h-full max-w-full object-contain"
+            className={`block h-auto max-w-full rounded-2xl object-contain ${imageMaxHeight} shadow-[0_8px_30px_rgba(15,23,42,0.08)]`}
             loading="lazy"
             decoding="async"
             onError={() => setImageError(true)}
@@ -83,7 +75,7 @@ function FallbackVisual({
 }) {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center rounded-xl ${sys.accent.bg}`}
+      className={`flex min-h-[220px] w-full max-w-[390px] flex-col items-center justify-center rounded-2xl ${sys.accent.bg}`}
       role="img"
       aria-label={sys.imageAlt}
     >

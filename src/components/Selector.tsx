@@ -74,8 +74,6 @@ export default function Selector({ picked, onPick }: Props) {
       aria-labelledby="selector-heading"
     >
       <div className="wrap px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
-
-        {/* Section heading */}
         <div className="mx-auto mb-9 max-w-2xl text-center sm:mb-11">
           <h2
             id="selector-heading"
@@ -89,7 +87,6 @@ export default function Selector({ picked, onPick }: Props) {
           </p>
         </div>
 
-        {/* System options */}
         <div
           role="radiogroup"
           aria-labelledby="selector-heading"
@@ -117,7 +114,7 @@ export default function Selector({ picked, onPick }: Props) {
                 className={`
                   group relative flex min-h-[92px] items-center gap-4
                   rounded-2xl border p-4 text-right
-                  transition-all duration-200
+                  transition-[transform,opacity,background-color,border-color,box-shadow] duration-300 ease-out
                   focus:outline-none
                   focus-visible:ring-2
                   focus-visible:ring-brand
@@ -133,11 +130,10 @@ export default function Selector({ picked, onPick }: Props) {
                   }
                 `}
               >
-                {/* Icon */}
                 <div
                   className={`
                     flex h-12 w-12 shrink-0 items-center justify-center
-                    rounded-xl transition-all duration-200
+                    rounded-xl transition-[background-color,transform] duration-300 ease-out
                     sm:h-[52px] sm:w-[52px]
                     ${
                       active
@@ -150,19 +146,21 @@ export default function Selector({ picked, onPick }: Props) {
                   <Icon
                     size={21}
                     strokeWidth={active ? 2.2 : 2}
-                    className={
-                      active
-                        ? sys.accent.text
-                        : 'text-text-secondary'
-                    }
+                    className={`
+                      transition-colors duration-300 ease-out
+                      ${
+                        active
+                          ? sys.accent.text
+                          : 'text-text-secondary'
+                      }
+                    `}
                   />
                 </div>
 
-                {/* Text */}
                 <div className="min-w-0 flex-1">
                   <span
                     className={`
-                      block text-base font-[700] leading-snug sm:text-[17px]
+                      block text-base font-[700] leading-snug transition-colors duration-300 ease-out sm:text-[17px]
                       ${
                         active
                           ? sys.accent.text
@@ -175,7 +173,7 @@ export default function Selector({ picked, onPick }: Props) {
 
                   <span
                     className={`
-                      mt-1 block text-sm font-[500] leading-snug
+                      mt-1 block text-sm font-[500] leading-snug transition-colors duration-300 ease-out
                       ${
                         active
                           ? `${sys.accent.text} opacity-75`
@@ -187,11 +185,10 @@ export default function Selector({ picked, onPick }: Props) {
                   </span>
                 </div>
 
-                {/* Selection indicator */}
                 <div
                   className={`
                     flex h-6 w-6 shrink-0 items-center justify-center
-                    rounded-full border-2 transition-all duration-200
+                    rounded-full border-2 transition-[background-color,border-color,transform] duration-300 ease-out
                     ${
                       active
                         ? `${sys.accent.border} ${sys.accent.iconBg}`
@@ -204,7 +201,7 @@ export default function Selector({ picked, onPick }: Props) {
                     <Check
                       size={13}
                       strokeWidth={3}
-                      className={sys.accent.text}
+                      className="animate-fade-in"
                     />
                   )}
                 </div>
@@ -214,7 +211,6 @@ export default function Selector({ picked, onPick }: Props) {
         </div>
       </div>
 
-      {/* Transition */}
       <div
         className={`h-10 sm:h-14 ${
           picked
