@@ -21,7 +21,7 @@ export default function Hero() {
 
         <div className="absolute -left-52 bottom-[-160px] h-[520px] w-[520px] rounded-full bg-navy-500/[0.12] blur-3xl" />
 
-        <div className="absolute left-[42%] top-[30%] h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-white/[0.012] blur-3xl" />
+        <div className="absolute left-[38%] top-[30%] h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-white/[0.012] blur-3xl" />
       </div>
 
       <div
@@ -36,16 +36,26 @@ export default function Hero() {
 
       <div className="wrap relative z-10">
         <div
-          className="grid min-h-[620px] grid-cols-1 items-center px-4 pb-10 pt-8 sm:px-6 sm:pb-14 sm:pt-12 lg:min-h-[650px] lg:grid-cols-[55fr_45fr] lg:gap-4 lg:px-0 lg:pb-12 lg:pt-10"
+          className="grid min-h-[620px] grid-cols-1 items-center px-4 pb-10 pt-8 sm:px-6 sm:pb-14 sm:pt-12 lg:min-h-[650px] lg:grid-cols-[58fr_42fr] lg:gap-2 lg:px-0 lg:pb-12 lg:pt-10"
           style={{ direction: 'ltr' }}
         >
-          <div className="order-2 flex h-full items-end justify-center lg:order-1">
-            <div className="relative flex h-full w-full items-end justify-center">
-              <div className="relative w-[min(92vw,620px)] sm:w-[min(88vw,680px)] lg:w-[min(100%,700px)]">
+          <div className="order-2 flex h-full items-center justify-center lg:order-1">
+            <div className="relative flex h-full w-full items-center justify-center">
+              <div className="relative flex w-[min(94vw,650px)] items-end justify-center sm:w-[min(90vw,700px)] lg:w-[min(100%,730px)]">
+                <div
+                  className="absolute bottom-[7%] left-1/2 h-[76%] w-[88%] -translate-x-1/2 rounded-[48px] bg-[#102b4b] shadow-[0_24px_60px_rgba(0,0,0,0.10)] sm:rounded-[56px] lg:bottom-[8%] lg:h-[74%] lg:w-[86%]"
+                  aria-hidden="true"
+                />
+
+                <div
+                  className="absolute bottom-[6%] left-1/2 h-[70%] w-[82%] -translate-x-1/2 rounded-[44px] bg-white/[0.025] sm:rounded-[52px] lg:bottom-[7%] lg:h-[69%] lg:w-[80%]"
+                  aria-hidden="true"
+                />
+
                 <img
                   src="/images/Hero.png"
                   alt="د. عيسى صبري المتولي"
-                  className="relative z-10 mx-auto block h-auto w-full object-contain drop-shadow-[0_22px_42px_rgba(0,0,0,0.22)] [filter:contrast(1.04)_brightness(1.03)_saturate(1.03)] [mask-image:linear-gradient(to_bottom,black_0%,black_87%,rgba(0,0,0,0.9)_92%,transparent_100%)]"
+                  className="relative z-10 mx-auto block h-auto w-full object-contain drop-shadow-[0_24px_44px_rgba(0,0,0,0.24)] [filter:contrast(1.04)_brightness(1.03)_saturate(1.03)] [mask-image:linear-gradient(to_bottom,black_0%,black_87%,rgba(0,0,0,0.9)_93%,transparent_100%)]"
                   loading="eager"
                   decoding="async"
                 />
@@ -73,7 +83,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="mt-6 max-w-[600px] text-[16px] font-[400] leading-[1.95] text-white/65 sm:text-[17px] lg:text-[18px]">
+            <p className="mt-6 max-w-[560px] text-[16px] font-[400] leading-[1.95] text-white/75 sm:text-[17px] lg:text-[18px]">
               قدامك أكتر من طريقة لدراسة البرمجة وعلوم الحاسب.
               <br className="hidden sm:block" />
               اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
