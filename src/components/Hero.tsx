@@ -34,7 +34,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="wrap relative z-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1180px] lg:-translate-x-5">
         <div
           className="grid min-h-[600px] grid-cols-1 items-center px-4 pb-8 pt-7 sm:min-h-[620px] sm:px-6 sm:pb-12 sm:pt-10 lg:min-h-[630px] lg:grid-cols-[58fr_42fr] lg:gap-0 lg:px-0 lg:pb-10 lg:pt-6"
           style={{ direction: 'ltr' }}
