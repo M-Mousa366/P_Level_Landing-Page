@@ -175,10 +175,7 @@ export default function App() {
         )}
       </main>
 
-      <Footer
-        hasPick={!!picked}
-        pickedSys={pickedSys}
-      />
+     <Footer />
     </div>
   );
 }
