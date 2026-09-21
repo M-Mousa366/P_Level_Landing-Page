@@ -215,7 +215,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
       </div>
 
       <div
-        className="h-10 rounded-t-[28px] bg-navy-900 sm:h-14"
+        className="h-5 rounded-t-[24px] bg-navy-900 sm:h-6"
         aria-hidden="true"
       />
     </section>

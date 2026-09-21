@@ -38,6 +38,46 @@ const options: Option[] = [
   },
 ];
 
+const CARD_STYLES: Record<
+  SystemId,
+  {
+    bg: string;
+    border: string;
+    iconBg: string;
+    text: string;
+    dot: string;
+  }
+> = {
+  center: {
+    bg: 'bg-[#F3F6FA]',
+    border: 'border-[#D7E0EB]',
+    iconBg: 'bg-[#E3EBF4]',
+    text: 'text-[#2D4A6E]',
+    dot: 'bg-[#4A7AB5]',
+  },
+  'online-live': {
+    bg: 'bg-[#F1F7FB]',
+    border: 'border-[#D0E2EF]',
+    iconBg: 'bg-[#DFEDF6]',
+    text: 'text-[#1E5272]',
+    dot: 'bg-[#3D87B8]',
+  },
+  books: {
+    bg: 'bg-[#FCF8EE]',
+    border: 'border-[#E9DDBE]',
+    iconBg: 'bg-[#F4E9C9]',
+    text: 'text-[#7A5C1E]',
+    dot: 'bg-[#C9973A]',
+  },
+  club: {
+    bg: 'bg-[#F2F8F4]',
+    border: 'border-[#D1E3D7]',
+    iconBg: 'bg-[#E1F0E6]',
+    text: 'text-[#285C3A]',
+    dot: 'bg-[#3D8C57]',
+  },
+};
+
 interface Props {
   picked: SystemId | null;
   onPick: (id: SystemId) => void;
@@ -95,6 +135,7 @@ export default function Selector({ picked, onPick }: Props) {
           {options.map(({ id, label, sub, icon: Icon }, index) => {
             const active = picked === id;
             const dimmed = picked !== null && !active;
+            const style = CARD_STYLES[id];
             const sys = systems.find((item) => item.id === id)!;
 
             return (
@@ -112,9 +153,9 @@ export default function Selector({ picked, onPick }: Props) {
                   active || (!picked && index === 0) ? 0 : -1
                 }
                 className={`
-                  group relative flex min-h-[92px] items-center gap-4
+                  group relative flex min-h-[92px] w-full items-center gap-4
                   rounded-2xl border p-4 text-right
-                  transition-[transform,opacity,background-color,border-color,box-shadow] duration-300 ease-out
+                  transition-[transform,opacity,background-color,border-color,box-shadow] duration-250 ease-out
                   focus:outline-none
                   focus-visible:ring-2
                   focus-visible:ring-brand
@@ -125,20 +166,20 @@ export default function Selector({ picked, onPick }: Props) {
                     active
                       ? `${sys.accent.bg} ${sys.accent.border} shadow-md`
                       : dimmed
-                        ? 'cursor-pointer border-border/50 bg-surface opacity-45'
-                        : 'cursor-pointer border-border-strong bg-surface shadow-sm hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md'
+                        ? `cursor-pointer ${style.border} ${style.bg} opacity-[0.68] shadow-none`
+                        : `cursor-pointer ${style.border} ${style.bg} shadow-sm hover:shadow-md`
                   }
                 `}
               >
                 <div
                   className={`
                     flex h-12 w-12 shrink-0 items-center justify-center
-                    rounded-xl transition-[background-color,transform] duration-300 ease-out
+                    rounded-xl transition-[background-color,transform] duration-250 ease-out
                     sm:h-[52px] sm:w-[52px]
                     ${
                       active
                         ? sys.accent.iconBg
-                        : 'bg-base group-hover:bg-subtle'
+                        : `${style.iconBg} group-hover:brightness-[0.98]`
                     }
                   `}
                   aria-hidden="true"
@@ -147,11 +188,11 @@ export default function Selector({ picked, onPick }: Props) {
                     size={21}
                     strokeWidth={active ? 2.2 : 2}
                     className={`
-                      transition-colors duration-300 ease-out
+                      transition-colors duration-250 ease-out
                       ${
                         active
                           ? sys.accent.text
-                          : 'text-text-secondary'
+                          : style.text
                       }
                     `}
                   />
@@ -160,7 +201,8 @@ export default function Selector({ picked, onPick }: Props) {
                 <div className="min-w-0 flex-1">
                   <span
                     className={`
-                      block text-base font-[700] leading-snug transition-colors duration-300 ease-out sm:text-[17px]
+                      block text-base font-[700] leading-snug
+                      transition-colors duration-250 ease-out sm:text-[17px]
                       ${
                         active
                           ? sys.accent.text
@@ -173,11 +215,12 @@ export default function Selector({ picked, onPick }: Props) {
 
                   <span
                     className={`
-                      mt-1 block text-sm font-[500] leading-snug transition-colors duration-300 ease-out
+                      mt-1 block text-sm font-[500] leading-snug
+                      transition-colors duration-250 ease-out
                       ${
                         active
                           ? `${sys.accent.text} opacity-75`
-                          : 'text-text-secondary'
+                          : style.text
                       }
                     `}
                   >
@@ -188,20 +231,21 @@ export default function Selector({ picked, onPick }: Props) {
                 <div
                   className={`
                     flex h-6 w-6 shrink-0 items-center justify-center
-                    rounded-full border-2 transition-[background-color,border-color,transform] duration-300 ease-out
+                    rounded-full border-2
+                    transition-[background-color,border-color,transform,opacity] duration-250 ease-out
                     ${
                       active
                         ? `${sys.accent.border} ${sys.accent.iconBg}`
-                        : 'border-border-strong bg-surface'
+                        : `${style.border} bg-white/70`
                     }
                   `}
                   aria-hidden="true"
                 >
                   {active && (
                     <Check
-                      size={13}
+                      size={12}
                       strokeWidth={3}
-                      className="animate-fade-in"
+                      className={`animate-fade-in ${sys.accent.text}`}
                     />
                   )}
                 </div>

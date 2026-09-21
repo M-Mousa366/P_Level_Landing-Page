@@ -14,13 +14,27 @@ export default function Hero() {
       aria-labelledby="hero-heading"
     >
       <div
+        className="pointer-events-none absolute inset-x-0 top-[74px] z-0 h-12 sm:h-14"
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 1200 70"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+        >
+          <path
+            d="M0,0 L0,34 Q600,-12 1200,34 L1200,0 Z"
+            fill="#eef2f7"
+          />
+        </svg>
+      </div>
+
+      <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
         <div className="absolute -right-48 -top-40 h-[520px] w-[520px] rounded-full bg-brand/[0.04] blur-3xl" />
-
         <div className="absolute -left-60 bottom-[-190px] h-[540px] w-[540px] rounded-full bg-navy-500/[0.09] blur-3xl" />
-
         <div className="absolute left-[34%] top-[34%] h-[280px] w-[560px] -translate-x-1/2 rounded-full bg-white/[0.008] blur-3xl" />
       </div>
 
