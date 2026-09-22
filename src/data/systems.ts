@@ -1,216 +1,223 @@
-export type SystemId = 'center' | 'online-live' | 'books' | 'club';
+export type SystemId =
+  | 'center'
+  | 'online-live'
+  | 'books'
+  | 'club';
 
 export interface System {
   id: SystemId;
-  fit: string;
-  whyItFits: string;
   title: string;
   tagline: string;
-  suitableIf: string[];
-  includes: string[];
-  pricingNote: string;
-  details: string[];
-  imageSrc: string;
   imageAlt: string;
-  whatsappMessage: string;
+
   accent: {
     bg: string;
     border: string;
     text: string;
     iconBg: string;
     dot: string;
-    tag: string;
+  };
+
+  suitableIf: string[];
+  includes: string[];
+  details: string[];
+
+  whatsappMessage: string;
+
+  cta: {
+    bookingUrl?: string;
+    bookingLabel?: string;
+    whatsappLabel: string;
   };
 }
 
-const WHATSAPP_NUMBER: string = '201095304313';
+export const WHATSAPP_NUMBER = '201095304313';
 
 export function buildWhatsAppUrl(message: string): string {
-  if (WHATSAPP_NUMBER === 'WHATSAPP_NUMBER_PLACEHOLDER') {
+  if (message === 'WHATSAPP_LINK_PLACEHOLDER') {
     return 'WHATSAPP_LINK_PLACEHOLDER';
   }
+
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+const BOOKING_URL = 'https://tasabuq.com/programmingbooking/';
+
 export const systems: System[] = [
   {
-    id: 'center',
-    title: 'الحضور في السنتر',
-    fit: 'بحب الحضور والتفاعل',
-    whyItFits:
-      'في السنتر بتحضر الحصة مع المدرس مباشرةً، تسأل وسط الشرح، وتحل التطبيقات في نفس الوقت.',
-    tagline: 'شرح مباشر وجهًا لوجه مع المدرس والزملاء داخل السنتر.',
-    suitableIf: [
-      'بتستفيد لما تسأل المدرس في الحصة مباشرةً',
-      'بتحب تحل التمارين مع الشرح مش لوحدك',
-      'بتفضل جو السنتر وحضور الزملاء',
-    ],
-    includes: [
-      'شرح الدرس بالكامل',
-      'حل تمارين وتطبيقات أثناء الحصة',
-      'أسئلة واستفسارات مع المدرس',
-      'متابعة داخل السنتر',
-    ],
-    details: [
-      'المواعيد والأماكن بتختلف حسب السنتر — تواصل للاستفسار عن المتاح في منطقتك',
-      'الحضور بيكون في مجموعات صغيرة عشان الاستفادة أكتر',
-      'تقدر تتابع في أكتر من نظام في نفس الوقت لو احتجت',
-    ],
-    pricingNote: 'السعر بيختلف حسب السنتر — تواصل للاستفسار',
-    whatsappMessage:
-      'السلام عليكم، أنا مهتم بنظام الحضور في السنتر لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بالتفاصيل والمواعيد المتاحة؟',
-    imageSrc: '/images/center/center.png',
-    imageAlt: 'طالب يحضر حصة في السنتر مع المدرس',
-    accent: {
-      bg: 'bg-sys1-bg',
-      border: 'border-sys1-border',
-      text: 'text-sys1-text',
-      iconBg: 'bg-sys1-icon',
-      dot: 'bg-sys1-dot',
-      tag: 'text-sys1-text bg-sys1-bg border-sys1-border',
-    },
+  id: 'center',
+  title: 'الحضور في السنتر',
+  tagline:
+    'شرح مباشر وجهًا لوجه مع د/ عيسى صبري والزملاء، مع فرصة للسؤال والمناقشة والتطبيق أثناء الحصة، ومتابعة مستمرة أثناء الدراسة.',
+  imageAlt: 'الحضور في السنتر',
+  accent: {
+    bg: 'bg-sys1-bg',
+    border: 'border-sys1-border',
+    text: 'text-sys1-text',
+    iconBg: 'bg-sys1-icon',
+    dot: 'bg-sys1-dot',
+  },
+  suitableIf: [
+    'بتفضل الشرح المباشر والتفاعل مع الدكتور والزملاء.',
+    'بتحب تسأل وتناقش أثناء الحصة بدل ما تذاكر لوحدك.',
+    'محتاج متابعة وتشجيع يساعدوك تلتزم بالمذاكرة والتدريب.',
+  ],
+  includes: [
+    'شرح المنهج خطوة بخطوة داخل الحصة.',
+    'تطبيق عملي وحل تمارين أثناء الشرح.',
+    'فرصة للسؤال والمناقشة مع الدكتور.',
+    'متابعة لمستواك وتقدمك أثناء الدراسة.',
+  ],
+  details: [
+    'الشرح متاح لطلاب البكالوريا العربي واللغات.',
+    'الحضور متاح في السناتر أو في مقر شركة تسابق.',
+    'المواعيد والأماكن بتختلف حسب المجموعة والمكان المتاح.',
+    'تقدر تجمع بين الحضور في السنتر وأي طريقة دراسة تانية حسب احتياجاتك.',
+  ],
+  whatsappMessage:
+    'مرحبا اريد الاستفسار عن نظام الحضور في السنتر لمادة البرمجة مع د/عيسى صبري.',
+  cta: {
+    bookingUrl: BOOKING_URL,
+    bookingLabel: 'احجز مكانك',
+    whatsappLabel: 'استفسر عبر واتساب',
   },
 
-  {
-    id: 'online-live',
-    title: 'Online Live',
-    fit: 'عايز أدرس من البيت',
-    whyItFits:
-      'Online Live بيوصلك الشرح المباشر من البيت عبر Zoom أو Google Meet، مع إمكانية السؤال أثناء الحصة.',
-    tagline: 'حصص مباشرة أونلاين — نفس إحساس السنتر بس من بيتك.',
-    suitableIf: [
-      'مش قادر تحضر السنتر وعايز شرح مباشر',
-      'بتحب تسأل وتتفاعل في الحصة',
-      'بتفضل تدرس من البيت في موعد محدد',
-    ],
-    includes: [
-      'شرح الدرس بالكامل أونلاين',
-      'أسئلة وإجابات مباشرة أثناء الشرح',
-      'حل بعض التمارين مع المدرس',
-      'الحصص عبر Zoom أو Google Meet',
-    ],
-    details: [
-      'محتاج إنترنت مستقر وكاميرا أو ميكروفون للمشاركة',
-      'بيتبعتلك رابط الحصة قبل الموعد مباشرةً',
-      'تقدر تحضر من أي مكان طول ما عندك اتصال كويس',
-    ],
-    pricingNote: 'للاستفسار عن تكلفة الاشتراك',
-    whatsappMessage:
-      'السلام عليكم، أنا مهتم بنظام Online Live لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بتفاصيل الاشتراك والمواعيد؟',
-    imageSrc: '/images/online/Meet_vs._Zoom.png',
-    imageAlt: 'طالب يحضر حصة أونلاين من البيت',
-    accent: {
-      bg: 'bg-sys2-bg',
-      border: 'border-sys2-border',
-      text: 'text-sys2-text',
-      iconBg: 'bg-sys2-icon',
-      dot: 'bg-sys2-dot',
-      tag: 'text-sys2-text bg-sys2-bg border-sys2-border',
-    },
   },
+
+{
+  id: 'online-live',
+  title: 'Online Live',
+  tagline:
+    'شرح مباشر أونلاين مع د/ عيسى صبري، مع فرصة للسؤال والمناقشة والتطبيق أثناء الحصة، ومتابعة مستمرة أثناء الدراسة.',
+  imageAlt: 'نظام Online Live',
+  accent: {
+    bg: 'bg-sys2-bg',
+    border: 'border-sys2-border',
+    text: 'text-sys2-text',
+    iconBg: 'bg-sys2-icon',
+    dot: 'bg-sys2-dot',
+  },
+  suitableIf: [
+    'بتفضل الدراسة من البيت بدل الذهاب للسنتر.',
+    'محتاج شرح مباشر وتفاعل مع الدكتور بدون حضور فعلي.',
+    'عندك قدرة على الالتزام بموعد الحصة ومتابعة الشرح أونلاين.',
+  ],
+  includes: [
+    'شرح مباشر للمنهج مع الدكتور.',
+    'إمكانية السؤال والمناقشة أثناء الحصة.',
+    'تطبيق وحل تمارين مع الدكتور أثناء الشرح.',
+    'حضور المحاضرات المباشرة أونلاين من خلال Zoom أو Google Meet أو منصة نادي المبرمجين.',
+  ],
+  details: [
+    'الشرح متاح لطلاب البكالوريا العربي واللغات.',
+    'محتاج اتصال إنترنت مستقر لحضور المحاضرات بشكل جيد.',
+    'المحاضرات بتكون Live في مواعيد محددة مسبقًا حسب المجموعة.',
+    'تقدر تجمع بين Online Live وأي طريقة دراسة تانية حسب احتياجاتك.',
+  ],
+  whatsappMessage:
+    'مرحبا اريد الاستفسار عن نظام الـOnline Live لمادة البرمجة مع د/عيسى صبري.',
+  cta: {
+    bookingUrl: BOOKING_URL,
+    bookingLabel: 'احجز مكانك',
+    whatsappLabel: 'استفسر عبر واتساب',
+  },
+},
 
   {
     id: 'books',
     title: 'كتب شيخ البرمجة',
-    fit: 'بحب أذاكر بطريقتي',
-    whyItFits:
-      'الحزمة بتديلك الشرح والتدريبات والاختبارات في كتب جاهزة — تذاكر في أي وقت وبالسرعة اللي تناسبك.',
-    tagline: 'حزمة 3 كتب: شرح المنهج، تدريبات محلولة، وواجبات للتقييم.',
-    suitableIf: [
-      'بتفضل تذاكر بوقتك من غير مواعيد ثابتة',
-      'بتحتاج مرجع واضح تذاكر منه وترجع ليه',
-      'بتحب تحل تدريبات وتعرف مستواك بنفسك',
-    ],
-    includes: [
-      'كتاب الشرح — المنهج بالكامل بطريقة منظمة',
-      'كتاب التدريبات المحلولة — تدريبات الكتاب المدرسي وتدريبات إضافية',
-      'كتاب الواجبات والاختبارات — عشان تختبر نفسك',
-    ],
-    details: [
-      'الحزمة بتشتريها مرة واحدة من غير اشتراك شهري',
-      'الكتب مطبوعة — تواصل للاستفسار عن طريقة الاستلام أو التوصيل',
-      'تقدر تستخدم الكتب بجانب أي نظام تاني كمرجع إضافي',
-    ],
-    pricingNote: 'للاستفسار عن السعر وطريقة الحصول على الحزمة',
-    whatsappMessage:
-      'السلام عليكم، أنا مهتم بحزمة كتب شيخ البرمجة لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بالسعر وطريقة الحصول على الحزمة؟',
-    imageSrc: '/images/books/Books.png',
-    imageAlt: 'حزمة كتب شيخ البرمجة الثلاثة',
+    tagline:
+      'كتب مطبوعة من إعداد د/ عيسى صبري، تجمع شرح المنهج والتمارين المحلولة والواجبات والاختبارات، وتقدر تستخدمها مع أي طريقة دراسة أو تذاكر وتحل منها بشكل مستقل.',
+    imageAlt: 'كتب شيخ البرمجة',
     accent: {
       bg: 'bg-sys3-bg',
       border: 'border-sys3-border',
       text: 'text-sys3-text',
       iconBg: 'bg-sys3-icon',
       dot: 'bg-sys3-dot',
-      tag: 'text-sys3-text bg-sys3-bg border-sys3-border',
+    },
+    suitableIf: [
+      'عايز يكون معاك الكتاب مطبوع بدل الاعتماد على الـPDF.',
+      'مشترك في السنتر أو Online Live أو نادي المبرمجين وعايز مصدر إضافي للمذاكرة والتدريب.',
+      'مش مشترك في أي طريقة دراسة وعايز تذاكر وتحل من كتب شيخ البرمجة بشكل مستقل.',
+    ],
+    includes: [
+      'كتب مطبوعة لشرح المنهج بطريقة منظمة.',
+      'تمارين محلولة تشمل تمارين الكتاب المدرسي وكتب شيخ البرمجة.',
+      'واجبات واختبارات للتدريب والمراجعة.',
+      'مصدر تقدر ترجعله أثناء المذاكرة وتحل منه في أي وقت.',
+    ],
+    details: [
+      'الكتب متوفرة بنسختين: عربي ولغات، حسب نظام الدراسة.',
+      'الكتب مطبوعة، وممكن استخدامها بجانب أي طريقة دراسة تانية.',
+      'مناسبة لطلاب د/ عيسى صبري ولأي طالب يرغب في المذاكرة والتدريب من خلالها.',
+      'تواصل مع الإدارة لمعرفة تفاصيل شراء الكتب والاستلام أو التوصيل.',
+    ],
+    whatsappMessage:
+     'مرحبا اريد الاستفسار عن كتب شيخ البرمجة لـ د/عيسى صبري.',
+    cta: {
+      whatsappLabel: 'استفسر عن الكتب عبر واتساب',
     },
   },
 
   {
     id: 'club',
     title: 'نادي المبرمجين',
-    fit: 'محتاج متابعة مستمرة',
-    whyItFits:
-      'نادي المبرمجين بيتابع معاك خطوة بخطوة — بترفع واجباتك وبيوصلك التصحيح والملاحظات خلال 24 ساعة، وفيه اختبارات دورية تعرف منها مستواك.',
-    tagline: 'منصة شاملة للشرح والتدريب والمتابعة — كل حاجة في مكان واحد.',
-    suitableIf: [
-      'محتاج حد يتابع معاك ويصحح واجباتك بانتظام',
-      'بتستفيد من الاختبارات الدورية عشان تعرف وصلت فين',
-      'بتحب يكون عندك محتوى ونظام واجبات في مكان واحد',
-    ],
-    includes: [
-      'فيديوهات شرح كاملة + E-book',
-      'رفع الواجبات وتصحيحها مع ملاحظات خلال 24 ساعة',
-      'فيديوهات لحل الواجبات',
-      'اختبارات دورية و Challenges',
-    ],
-    details: [
-      'خطط الاشتراك: شهري، ترم (4 شهور)، أو سنة دراسية كاملة',
-      'بعد التفعيل بتدخل المنصة وتلاقي كل المحتوى منظم وجاهز',
-      'الواجبات بتترفع على المنصة وبيوصلك التصحيح والملاحظات خلال 24 ساعة',
-    ],
-    pricingNote: 'للاستفسار عن السعر وتفاصيل الاشتراك',
-    whatsappMessage:
-      'السلام عليكم، أنا مهتم بالاشتراك في نادي المبرمجين لمادة البرمجة وعلوم الحاسب. ممكن تعرفني بالأسعار وخطط الاشتراك المتاحة؟',
-    imageSrc: '/images/platform/progclub.png',
-    imageAlt: 'منصة نادي المبرمجين — واجبات وفيديوهات وتقدم الطالب',
+    tagline:
+      'منصة تعليمية أونلاين لطلاب البكالوريا، بتوفر شرح المنهج من خلال الفيديوهات والتمارين والواجبات، مع التصحيح والمتابعة المستمرة.',
+    imageAlt: 'منصة نادي المبرمجين',
     accent: {
       bg: 'bg-sys4-bg',
       border: 'border-sys4-border',
       text: 'text-sys4-text',
       iconBg: 'bg-sys4-icon',
       dot: 'bg-sys4-dot',
-      tag: 'text-sys4-text bg-sys4-bg border-sys4-border',
+    },
+    suitableIf: [
+      'بتحب تذاكر من البيت وفي الوقت المناسب ليك.',
+      'محتاج متابعة وتصحيح للواجبات بدل المذاكرة بشكل منفرد.',
+      'بتحب التدريب المستمر والاختبارات والتحديات اللي تساعدك تطور مستواك.',
+    ],
+    includes: [
+      'فيديوهات شرح للمنهج تقدر تشوفها في الوقت المناسب ليك.',
+      'كتاب إلكتروني وتمارين للتدريب والتطبيق.',
+      'رفع الواجبات على المنصة والحصول على التصحيح خلال 24 ساعة.',
+      'فيديوهات لحل الواجبات بعد التصحيح.',
+      'اختبارات مفاجئة وتحديات وأنشطة تساعدك على الاستمرار والتدريب.',
+    ],
+    details: [
+      'المنصة متاحة لطلاب البكالوريا العربي واللغات، مع محتوى مناسب لكل نظام.',
+      'الاشتراك متاح شهريًا، أو ترم لمدة 4 شهور، أو سنة دراسية كاملة.',
+      'المحتوى والواجبات والتدريبات متاحة من خلال منصة نادي المبرمجين.',
+      'تقدر تتابع المحتوى في الوقت المناسب ليك مع الالتزام بالواجبات والتدريب.',
+    ],
+    whatsappMessage:
+      'مرحبا اريد الاستفسار عن نظام منصة د/عيسى صبري ونادي المبرمجين.',
+    cta: {
+      bookingUrl: BOOKING_URL,
+      bookingLabel: 'احجز مكانك',
+      whatsappLabel: 'استفسر عبر واتساب',
     },
   },
 ];
 
 export const CONTACT = {
-  whatsapp: 'https://wa.me/201095304313',
-  phone: 'PHONE_NUMBER_PLACEHOLDER',
-  email: 'EMAIL_PLACEHOLDER',
-  facebook: 'FACEBOOK_LINK_PLACEHOLDER',
-  youtube: 'YOUTUBE_LINK_PLACEHOLDER',
-};
-
-export const HASH_TO_ID: Record<string, SystemId> = {
-  center: 'center',
-  online: 'online-live',
-  books: 'books',
-  platform: 'club',
+  whatsapp: `https://wa.me/${WHATSAPP_NUMBER}`,
 };
 
 export const ID_TO_HASH: Record<SystemId, string> = {
-  'center': 'center',
+  center: 'center',
   'online-live': 'online',
-  'books': 'books',
-  'club': 'platform',
+  books: 'books',
+  club: 'platform',
 };
 
 export function hashToSystemId(hash: string): SystemId | null {
-  const slug = hash.replace(/^#/, '').toLowerCase().trim();
-  return HASH_TO_ID[slug] ?? null;
-}
+  const normalized = hash.replace(/^#/, '').toLowerCase();
 
-export const GENERAL_WHATSAPP_MESSAGE =
-  'السلام عليكم، عايز أستفسر عن أنظمة تعلم البرمجة وعلوم الحاسب. ممكن تساعدني أختار الأنسب ليا؟';
+  const entry = (
+    Object.entries(ID_TO_HASH) as [SystemId, string][]
+  ).find(([, value]) => value === normalized);
+
+  return entry ? entry[0] : null;
+}

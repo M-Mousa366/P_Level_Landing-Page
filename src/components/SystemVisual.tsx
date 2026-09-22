@@ -44,14 +44,21 @@ export default function SystemVisual({
     >
       <div className="flex w-full items-center justify-center">
         {!imageError ? (
-          <img
-            src={imageSrc}
-            alt={sys.imageAlt}
-            className={`block h-auto max-w-full rounded-2xl object-contain ${imageMaxHeight} shadow-[0_8px_30px_rgba(15,23,42,0.08)]`}
-            loading="lazy"
-            decoding="async"
-            onError={() => setImageError(true)}
-          />
+          <div className="relative flex items-center justify-center">
+            <div
+              className="pointer-events-none absolute inset-[6%] rounded-[28px] bg-[#4FC2BB]/[0.07] blur-2xl"
+              aria-hidden="true"
+            />
+
+            <img
+              src={imageSrc}
+              alt={sys.imageAlt}
+              className={`relative block h-auto max-w-full rounded-2xl object-contain ${imageMaxHeight} shadow-[0_10px_32px_rgba(15,23,42,0.10)]`}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageError(true)}
+            />
+          </div>
         ) : (
           <FallbackVisual
             sys={sys}

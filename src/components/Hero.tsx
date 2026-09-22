@@ -10,24 +10,13 @@ export default function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden bg-navy-900 pt-[74px]"
+      className="relative overflow-hidden bg-navy-900"
       aria-labelledby="hero-heading"
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-[74px] z-0 h-12 sm:h-14"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-10 bg-black/[0.10] blur-xl"
         aria-hidden="true"
-      >
-        <svg
-          viewBox="0 0 1200 70"
-          preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
-        >
-          <path
-            d="M0,0 L0,34 Q600,-12 1200,34 L1200,0 Z"
-            fill="#eef2f7"
-          />
-        </svg>
-      </div>
+      />
 
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -102,7 +91,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={() => scrollTo('selector')}
-                className="group inline-flex min-h-[50px] min-w-[192px] items-center justify-center gap-2 rounded-[9px] bg-[#5ACFC8] px-7 text-[15px] font-[800] text-white shadow-[0_5px_16px_rgba(101,221,213,0.09)] transition-all duration-200 hover:bg-[#50C2BB] hover:shadow-[0_7px_20px_rgba(101,221,213,0.12)] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
+                className="group inline-flex min-h-[50px] min-w-[192px] items-center justify-center gap-2 rounded-[9px] bg-[#4FC2BB] px-7 text-[15px] font-[800] text-white shadow-[0_5px_16px_rgba(79,194,187,0.08)] transition-all duration-200 hover:bg-[#45B5AE] hover:shadow-[0_7px_20px_rgba(79,194,187,0.10)] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900"
               >
                 ساعدني أختار
                 <ArrowDown

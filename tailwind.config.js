@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+
   theme: {
     extend: {
       fontFamily: {
         sans: ['"Segoe UI"', 'Tahoma', 'Arial', 'sans-serif'],
       },
+
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.6' }],
         sm: ['0.875rem', { lineHeight: '1.75' }],
@@ -18,6 +21,7 @@ export default {
         '5xl': ['2.875rem', { lineHeight: '1.2' }],
         '6xl': ['3.5rem', { lineHeight: '1.15' }],
       },
+
       borderRadius: {
         sm: '4px',
         md: '8px',
@@ -27,6 +31,7 @@ export default {
         '3xl': '28px',
         full: '9999px',
       },
+
       colors: {
         navy: {
           950: '#050f1d',
@@ -37,18 +42,22 @@ export default {
           500: '#2a4f70',
           400: '#3d6a8a',
         },
+
         base: '#eef2f7',
         subtle: '#e4eaf2',
         surface: '#ffffff',
+
         border: {
           DEFAULT: '#e2e8f0',
           strong: '#cbd5e1',
         },
+
         text: {
           DEFAULT: '#0d1b2e',
           secondary: '#475569',
           muted: '#94a3b8',
         },
+
         brand: {
           DEFAULT: '#65ddd5',
           hover: '#4fcac2',
@@ -56,24 +65,39 @@ export default {
           light: '#e9fbfa',
           muted: '#bcefeb',
         },
+
         whatsapp: {
           DEFAULT: '#00c896',
           hover: '#00b585',
         },
+
+        /*
+         * System 1 — Center
+         * هادي وأزرق واضح لتمييز الحضور الفعلي في السنتر.
+         */
         sys1: {
-          bg: '#EEF2F7',
-          border: '#C7D4E4',
-          text: '#2D4A6E',
-          icon: '#D4E0EF',
-          dot: '#4A7AB5',
+          bg: '#EEF3F8',
+          border: '#C4D3E3',
+          text: '#315777',
+          icon: '#D8E4F0',
+          dot: '#4A78A8',
         },
+
+        /*
+         * System 2 — Online Live
+         * Teal مختلف بوضوح عن أزرق الـ Center.
+         */
         sys2: {
-          bg: '#EDF5FA',
-          border: '#BFD9EC',
-          text: '#1E5272',
-          icon: '#CBE4F4',
-          dot: '#3D87B8',
+          bg: '#EDF8F7',
+          border: '#B9DEDB',
+          text: '#246B68',
+          icon: '#D3ECEA',
+          dot: '#3B9691',
         },
+
+        /*
+         * System 3 — Books
+         */
         sys3: {
           bg: '#FBF5E8',
           border: '#E8D5A4',
@@ -81,6 +105,10 @@ export default {
           icon: '#F2E4BB',
           dot: '#C9973A',
         },
+
+        /*
+         * System 4 — Club
+         */
         sys4: {
           bg: '#EEF6F1',
           border: '#BFD9C9',
@@ -89,13 +117,16 @@ export default {
           dot: '#3D8C57',
         },
       },
+
       maxWidth: {
         wrap: '1100px',
       },
+
       animation: {
         'fade-up': 'fadeUp 0.4s ease-out both',
         'fade-in': 'fadeIn 0.3s ease-out both',
       },
+
       keyframes: {
         fadeUp: {
           from: {
@@ -107,6 +138,7 @@ export default {
             transform: 'none',
           },
         },
+
         fadeIn: {
           from: {
             opacity: '0',
@@ -118,5 +150,6 @@ export default {
       },
     },
   },
+
   plugins: [],
 };

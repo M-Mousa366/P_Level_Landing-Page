@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.09] bg-navy-900 shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
+      className="relative z-50 border-b border-white/[0.09] bg-navy-900 shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
       role="banner"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-7 lg:px-10">

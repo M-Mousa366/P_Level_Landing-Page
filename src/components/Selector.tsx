@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { Users, Monitor, BookOpen, Zap, Check } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { systems } from '../data/systems';
 import type { SystemId } from '../data/systems';
 
 interface Option {
@@ -45,36 +44,31 @@ const CARD_STYLES: Record<
     border: string;
     iconBg: string;
     text: string;
-    dot: string;
   }
 > = {
   center: {
-    bg: 'bg-[#F3F6FA]',
-    border: 'border-[#D7E0EB]',
+    bg: 'bg-[#EEF3F8]',
+    border: 'border-[#C4D3E3]',
     iconBg: 'bg-[#E3EBF4]',
     text: 'text-[#2D4A6E]',
-    dot: 'bg-[#4A7AB5]',
   },
   'online-live': {
-    bg: 'bg-[#F1F7FB]',
-    border: 'border-[#D0E2EF]',
-    iconBg: 'bg-[#DFEDF6]',
-    text: 'text-[#1E5272]',
-    dot: 'bg-[#3D87B8]',
+    bg: 'bg-[#EDF8F7]',
+    border: 'border-[#B9DEDB]',
+    iconBg: 'bg-[#D3ECEA]',
+    text: 'text-[#246B68]',
   },
   books: {
-    bg: 'bg-[#FCF8EE]',
-    border: 'border-[#E9DDBE]',
+    bg: 'bg-[#FBF5E8]',
+    border: 'border-[#E8D5A4]',
     iconBg: 'bg-[#F4E9C9]',
     text: 'text-[#7A5C1E]',
-    dot: 'bg-[#C9973A]',
   },
   club: {
-    bg: 'bg-[#F2F8F4]',
-    border: 'border-[#D1E3D7]',
+    bg: 'bg-[#EEF6F1]',
+    border: 'border-[#BFD9C9]',
     iconBg: 'bg-[#E1F0E6]',
     text: 'text-[#285C3A]',
-    dot: 'bg-[#3D8C57]',
   },
 };
 
@@ -136,7 +130,6 @@ export default function Selector({ picked, onPick }: Props) {
             const active = picked === id;
             const dimmed = picked !== null && !active;
             const style = CARD_STYLES[id];
-            const sys = systems.find((item) => item.id === id)!;
 
             return (
               <button
@@ -164,10 +157,10 @@ export default function Selector({ picked, onPick }: Props) {
                   sm:min-h-[100px] sm:p-5
                   ${
                     active
-                      ? `${sys.accent.bg} ${sys.accent.border} shadow-md`
+                      ? `${style.bg} ${style.border} shadow-md`
                       : dimmed
-                        ? `cursor-pointer ${style.border} ${style.bg} opacity-[0.68] shadow-none`
-                        : `cursor-pointer ${style.border} ${style.bg} shadow-sm hover:shadow-md`
+                        ? 'cursor-pointer border-border bg-white opacity-[0.68] shadow-none'
+                        : 'cursor-pointer border-border bg-white shadow-sm hover:shadow-md'
                   }
                 `}
               >
@@ -176,11 +169,7 @@ export default function Selector({ picked, onPick }: Props) {
                     flex h-12 w-12 shrink-0 items-center justify-center
                     rounded-xl transition-[background-color,transform] duration-250 ease-out
                     sm:h-[52px] sm:w-[52px]
-                    ${
-                      active
-                        ? sys.accent.iconBg
-                        : `${style.iconBg} group-hover:brightness-[0.98]`
-                    }
+                    ${style.iconBg}
                   `}
                   aria-hidden="true"
                 >
@@ -189,63 +178,44 @@ export default function Selector({ picked, onPick }: Props) {
                     strokeWidth={active ? 2.2 : 2}
                     className={`
                       transition-colors duration-250 ease-out
-                      ${
-                        active
-                          ? sys.accent.text
-                          : style.text
-                      }
+                      ${style.text}
                     `}
                   />
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <span
-                    className={`
+                    className="
                       block text-base font-[700] leading-snug
-                      transition-colors duration-250 ease-out sm:text-[17px]
-                      ${
-                        active
-                          ? sys.accent.text
-                          : 'text-text'
-                      }
-                    `}
+                      text-text transition-colors duration-250 ease-out sm:text-[17px]
+                    "
                   >
                     {label}
                   </span>
 
                   <span
-                    className={`
+                    className="
                       mt-1 block text-sm font-[500] leading-snug
-                      transition-colors duration-250 ease-out
-                      ${
-                        active
-                          ? `${sys.accent.text} opacity-75`
-                          : style.text
-                      }
-                    `}
+                      text-text-secondary transition-colors duration-250 ease-out
+                    "
                   >
                     {sub}
                   </span>
                 </div>
 
                 <div
-                  className={`
+                  className="
                     flex h-6 w-6 shrink-0 items-center justify-center
-                    rounded-full border-2
+                    rounded-full border-2 border-border-strong bg-white/70
                     transition-[background-color,border-color,transform,opacity] duration-250 ease-out
-                    ${
-                      active
-                        ? `${sys.accent.border} ${sys.accent.iconBg}`
-                        : `${style.border} bg-white/70`
-                    }
-                  `}
+                  "
                   aria-hidden="true"
                 >
                   {active && (
                     <Check
                       size={12}
                       strokeWidth={3}
-                      className={`animate-fade-in ${sys.accent.text}`}
+                      className="animate-fade-in text-text"
                     />
                   )}
                 </div>

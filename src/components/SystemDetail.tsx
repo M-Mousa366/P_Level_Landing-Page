@@ -2,9 +2,9 @@ import {
   MessageCircle,
   ArrowRight,
   CheckCircle,
-  ClipboardCheck,
   PackageCheck,
   Info,
+  CalendarCheck,
 } from 'lucide-react';
 
 import type { System } from '../data/systems';
@@ -17,8 +17,13 @@ interface Props {
 }
 
 export default function SystemDetail({ sys, onReset }: Props) {
-  const bookingUrl = buildWhatsAppUrl(sys.whatsappMessage);
-  const isConfigured = bookingUrl !== 'WHATSAPP_LINK_PLACEHOLDER';
+  const whatsappUrl = buildWhatsAppUrl(sys.whatsappMessage);
+  const isWhatsappConfigured =
+    whatsappUrl !== 'WHATSAPP_LINK_PLACEHOLDER';
+
+  const hasBooking = Boolean(
+    sys.cta.bookingUrl && sys.cta.bookingLabel
+  );
 
   return (
     <section
@@ -26,35 +31,32 @@ export default function SystemDetail({ sys, onReset }: Props) {
       className="system-detail-enter bg-surface font-arabic"
       aria-labelledby="detail-heading"
     >
-      <div className="wrap px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
-        <div className="grid grid-cols-1 items-center gap-9 lg:grid-cols-[47fr_53fr] lg:gap-14">
+      <div className="wrap px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-3 lg:pb-12 lg:pt-4">
+        {/* Intro */}
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[47fr_53fr] lg:gap-14">
           <div className="order-1">
             <SystemVisual sys={sys} />
           </div>
 
           <div className="order-2">
-            <div className="mb-4 flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <span
-                className={`h-9 w-1 shrink-0 rounded-full ${sys.accent.dot}`}
+                className={`h-10 w-1 shrink-0 rounded-full ${sys.accent.dot}`}
                 aria-hidden="true"
               />
 
               <h2
                 id="detail-heading"
-                className="text-[2rem] font-[700] leading-[1.3] tracking-tight text-text sm:text-[2.35rem]"
+                className="text-[1.85rem] font-[750] leading-[1.3] tracking-[-0.02em] text-text sm:text-[2.2rem] lg:text-[2.35rem]"
               >
                 {sys.title}
               </h2>
             </div>
 
             <p
-              className={`max-w-2xl text-[17px] font-[600] leading-[1.85] ${sys.accent.text} sm:text-[18px]`}
+              className={`mt-4 max-w-2xl text-[16px] font-[550] leading-[1.9] ${sys.accent.text} sm:text-[17px] sm:leading-[1.85]`}
             >
               {sys.tagline}
-            </p>
-
-            <p className="mt-4 max-w-2xl text-[16px] font-[500] leading-[2] text-text-secondary sm:text-[17px]">
-              {sys.whyItFits}
             </p>
 
             {sys.id === 'club' && (
@@ -62,7 +64,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
                 href="https://progclub.eissasabry.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-4 py-2.5 text-sm font-[700] text-text-secondary transition-colors duration-150 hover:border-text-muted hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                className="mt-5 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-4 py-2.5 text-[14px] font-[700] text-text-secondary transition-colors duration-150 hover:border-text-muted hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
                 aria-label="افتح منصة نادي المبرمجين"
               >
                 <span>استكشف منصة نادي المبرمجين</span>
@@ -76,20 +78,25 @@ export default function SystemDetail({ sys, onReset }: Props) {
           </div>
         </div>
 
-        <div className="mt-11 border-t border-border pt-10 sm:mt-13 sm:pt-11">
-          <div className="grid grid-cols-1 gap-9 lg:grid-cols-2 lg:gap-0">
-            <div className="lg:border-l lg:border-border lg:pl-14">
+        {/* Information sections */}
+        <div className="mt-9 border-t border-border pt-8 sm:mt-11 sm:pt-10">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-0">
+            {/* Suitable for */}
+            <div className="lg:border-l lg:border-border lg:pl-12">
               <SectionHeading
-                icon={ClipboardCheck}
+                icon={CheckCircle}
                 title="مناسب ليك لو"
                 accent={sys.accent}
               />
 
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-3">
                 {sys.suitableIf.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5"
+                  >
                     <span
-                      className={`mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${sys.accent.iconBg}`}
+                      className={`mt-[5px] flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full ${sys.accent.iconBg}`}
                       aria-hidden="true"
                     >
                       <CheckCircle
@@ -99,7 +106,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
                       />
                     </span>
 
-                    <span className="text-[16px] font-[500] leading-[1.9] text-text-secondary sm:text-[17px]">
+                    <span className="text-[16px] font-[500] leading-[1.85] text-text-secondary sm:text-[17px]">
                       {item}
                     </span>
                   </li>
@@ -107,22 +114,26 @@ export default function SystemDetail({ sys, onReset }: Props) {
               </ul>
             </div>
 
-            <div className="lg:pr-14">
+            {/* Includes */}
+            <div className="lg:pr-12">
               <SectionHeading
                 icon={PackageCheck}
                 title="إيه اللي هتحصل عليه؟"
                 accent={sys.accent}
               />
 
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-3">
                 {sys.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5"
+                  >
                     <span
                       className={`mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full ${sys.accent.dot}`}
                       aria-hidden="true"
                     />
 
-                    <span className="text-[16px] font-[500] leading-[1.9] text-text-secondary sm:text-[17px]">
+                    <span className="text-[16px] font-[500] leading-[1.85] text-text-secondary sm:text-[17px]">
                       {item}
                     </span>
                   </li>
@@ -131,10 +142,11 @@ export default function SystemDetail({ sys, onReset }: Props) {
             </div>
           </div>
 
+          {/* Important details */}
           {sys.details.length > 0 && (
-            <div className="mt-9 lg:mt-10">
+            <div className="mt-8 sm:mt-9">
               <div
-                className={`rounded-2xl border ${sys.accent.border} ${sys.accent.bg} px-5 py-5 sm:px-6 sm:py-6`}
+                className={`rounded-2xl border ${sys.accent.border} ${sys.accent.bg} px-4 py-4 sm:px-5 sm:py-5`}
               >
                 <SectionHeading
                   icon={Info}
@@ -142,15 +154,18 @@ export default function SystemDetail({ sys, onReset }: Props) {
                   accent={sys.accent}
                 />
 
-                <ul className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3.5 sm:grid-cols-2">
+                <ul className="mt-4 grid grid-cols-1 gap-y-2.5 sm:grid-cols-[fit-content(44%)_fit-content(44%)] sm:justify-between sm:gap-x-6">
                   {sys.details.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
+                    <li
+                      key={item}
+                      className="flex min-w-0 items-start gap-2.5"
+                    >
                       <span
                         className={`mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full ${sys.accent.dot}`}
                         aria-hidden="true"
                       />
 
-                      <span className="text-[15px] font-[500] leading-[1.9] text-text-secondary sm:text-[16px]">
+                      <span className="min-w-0 text-[15px] font-[500] leading-[1.85] text-text-secondary sm:text-[16px]">
                         {item}
                       </span>
                     </li>
@@ -161,48 +176,65 @@ export default function SystemDetail({ sys, onReset }: Props) {
           )}
         </div>
 
-        <div className="mx-auto mt-11 max-w-xl text-center sm:mt-12">
-          <h3 className="text-[20px] font-[700] leading-tight text-text sm:text-[21px]">
-            مهتم بالنظام ده؟
+        {/* CTA */}
+        <div className="mx-auto mt-9 max-w-xl text-center sm:mt-10">
+          <h3 className="text-[21px] font-[750] leading-tight text-text sm:text-[22px]">
+            مهتم بطريقة الدراسة دي؟
           </h3>
 
-          <p
-            className="mt-2.5 text-[15px] font-[500] leading-[1.8] sm:text-[16px]"
-            style={{ color: '#64748B' }}
-          >
-            تواصل مع الإدارة لمعرفة التفاصيل المتاحة والحجز.
+          <p className="mt-2 text-[15px] font-[500] leading-[1.8] text-text-secondary sm:text-[16px]">
+            {hasBooking
+              ? 'احجز مكانك أو تواصل مع الإدارة لو عندك أي استفسار.'
+              : 'تواصل مع الإدارة لمعرفة تفاصيل الكتب وطرق الحصول عليها.'}
           </p>
 
-          <div className="mt-5">
-            {isConfigured ? (
+          <div
+            className={`mt-5 flex flex-col justify-center gap-3 sm:flex-row ${
+              hasBooking ? '' : 'items-center'
+            }`}
+          >
+            {hasBooking && (
               <a
-                href={bookingUrl}
+                href={sys.cta.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp min-h-[50px] w-full justify-center px-7 text-base font-[700] sm:w-auto"
-                aria-label={`تواصل على واتساب للحجز في ${sys.title}`}
+                className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-xl bg-[#4FC2BB] px-6 text-[16px] font-[700] text-white shadow-[0_5px_16px_rgba(79,194,187,0.08)] transition-all duration-200 hover:bg-[#45B5AE] hover:shadow-[0_7px_20px_rgba(79,194,187,0.10)] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:w-auto"
+                aria-label={sys.cta.bookingLabel}
               >
-                <MessageCircle size={17} aria-hidden="true" />
-                تواصل للحجز عبر واتساب
+                <CalendarCheck
+                  size={17}
+                  strokeWidth={2.2}
+                  aria-hidden="true"
+                />
+                {sys.cta.bookingLabel}
               </a>
-            ) : (
-              <button
-                type="button"
-                disabled
-                className="btn-primary min-h-[50px] w-full cursor-not-allowed justify-center px-7 text-base font-[700] opacity-40"
+            )}
+
+            {isWhatsappConfigured && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-xl border border-whatsapp/25 bg-whatsapp/[0.06] px-6 text-[16px] font-[700] text-whatsapp transition-[background-color,border-color,transform] duration-200 hover:border-whatsapp/40 hover:bg-whatsapp/[0.10] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:w-auto"
+                aria-label={`${sys.cta.whatsappLabel} عبر واتساب`}
               >
-                <MessageCircle size={17} aria-hidden="true" />
-                تواصل للحجز عبر واتساب
-              </button>
+                <MessageCircle
+                  size={17}
+                  strokeWidth={2.2}
+                  aria-hidden="true"
+                />
+                {sys.cta.whatsappLabel}
+              </a>
             )}
           </div>
         </div>
 
-        <div className="mt-9 flex justify-center border-t border-border pt-7 sm:mt-10 sm:pt-8">
+        {/* Reset */}
+        <div className="mt-7 flex justify-center border-t border-border pt-6 sm:mt-8 sm:pt-7">
           <button
             type="button"
             onClick={onReset}
-            className="group inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-5 py-2.5 text-sm font-[700] text-text-secondary transition-all duration-200 hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            className="group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-border-strong bg-surface px-5 py-2.5 text-[15px] font-[700] text-text-secondary transition-colors duration-200 hover:bg-base hover:text-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             <ArrowRight
               size={15}
@@ -215,7 +247,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
       </div>
 
       <div
-        className="h-5 rounded-t-[24px] bg-navy-900 sm:h-6"
+        className="h-4 rounded-t-[20px] bg-navy-900 sm:h-5"
         aria-hidden="true"
       />
     </section>
@@ -223,7 +255,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
 }
 
 interface SectionHeadingProps {
-  icon: typeof ClipboardCheck;
+  icon: typeof CheckCircle;
   title: string;
   accent: System['accent'];
 }
@@ -234,19 +266,19 @@ function SectionHeading({
   accent,
 }: SectionHeadingProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2.5">
       <div
-        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${accent.iconBg}`}
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] ${accent.iconBg}`}
         aria-hidden="true"
       >
         <Icon
-          size={18}
+          size={17}
           strokeWidth={2.2}
           className={accent.text}
         />
       </div>
 
-      <h3 className="text-[18px] font-[700] leading-tight text-text sm:text-[19px]">
+      <h3 className="text-[18px] font-[750] leading-tight text-text sm:text-[19px]">
         {title}
       </h3>
     </div>
