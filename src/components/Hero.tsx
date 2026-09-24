@@ -51,10 +51,13 @@ export default function Hero() {
                 />
 
                 <img
-                  src="/images/Hero.png"
+                  src="/images/Hero.webp"
                   alt="د. عيسى صبري المتولي"
+                  width="1280"
+                  height="1280"
                   className="relative z-10 mx-auto block h-auto w-full object-contain drop-shadow-[0_18px_34px_rgba(0,0,0,0.17)] [filter:contrast(1.03)_brightness(1.025)_saturate(1.015)] [mask-image:linear-gradient(to_bottom,black_0%,black_89%,rgba(0,0,0,0.88)_95%,transparent_100%)]"
                   loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                 />
               </div>

@@ -28,7 +28,7 @@ export default function SystemDetail({ sys, onReset }: Props) {
   return (
     <section
       id="system-detail"
-      className="system-detail-enter bg-surface font-arabic"
+      className="system-detail-enter scroll-mt-7 bg-surface font-arabic"
       aria-labelledby="detail-heading"
     >
       <div className="wrap px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-3 lg:pb-12 lg:pt-4">

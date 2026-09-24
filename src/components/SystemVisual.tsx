@@ -15,11 +15,20 @@ const ICONS = {
 } as const;
 
 const IMAGE_SOURCES = {
-  center: '/images/center/center.png',
-  'online-live': '/images/online/Meet_vs._Zoom.png',
-  books: '/images/books/Books.png',
-  club: '/images/platform/progclub.png',
+  center: '/images/center/center.webp',
+  'online-live': '/images/online/Meet_vs._Zoom.webp',
+  books: '/images/books/Books.webp',
+  club: '/images/platform/progclub.webp',
 } as const;
+
+// Natural pixel dimensions of each image.
+// Used for width/height attributes to prevent layout shift (CLS).
+const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> = {
+  center: { width: 1024, height: 683 },
+  'online-live': { width: 1600, height: 656 },
+  books: { width: 1024, height: 683 },
+  club: { width: 1834, height: 998 },
+};
 
 const IMAGE_MAX_HEIGHTS = {
   center: 'max-h-[330px]',
@@ -36,6 +45,7 @@ export default function SystemVisual({
   const Icon = ICONS[sys.id];
   const imageSrc = IMAGE_SOURCES[sys.id];
   const imageMaxHeight = IMAGE_MAX_HEIGHTS[sys.id];
+  const imageDims = IMAGE_DIMENSIONS[sys.id];
 
   return (
     <figure
@@ -53,6 +63,8 @@ export default function SystemVisual({
             <img
               src={imageSrc}
               alt={sys.imageAlt}
+              width={imageDims.width}
+              height={imageDims.height}
               className={`relative block h-auto max-w-full rounded-2xl object-contain ${imageMaxHeight} shadow-[0_10px_32px_rgba(15,23,42,0.10)]`}
               loading="lazy"
               decoding="async"
