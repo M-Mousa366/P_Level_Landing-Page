@@ -104,7 +104,7 @@ export default function Selector({ picked, onPick }: Props) {
   return (
     <section
       id="selector"
-      className="scroll-mt-[76px] bg-base"
+      className="scroll-mt-[24px] bg-base"
       aria-labelledby="selector-heading"
     >
       <div className="wrap px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
@@ -142,9 +142,7 @@ export default function Selector({ picked, onPick }: Props) {
                 aria-checked={active}
                 onClick={() => onPick(id)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                tabIndex={
-                  active || (!picked && index === 0) ? 0 : -1
-                }
+                tabIndex={active || (!picked && index === 0) ? 0 : -1}
                 className={`
                   group relative flex min-h-[92px] w-full items-center gap-4
                   rounded-2xl border p-4 text-right
@@ -176,29 +174,16 @@ export default function Selector({ picked, onPick }: Props) {
                   <Icon
                     size={21}
                     strokeWidth={active ? 2.2 : 2}
-                    className={`
-                      transition-colors duration-250 ease-out
-                      ${style.text}
-                    `}
+                    className={`transition-colors duration-250 ease-out ${style.text}`}
                   />
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <span
-                    className="
-                      block text-base font-[700] leading-snug
-                      text-text transition-colors duration-250 ease-out sm:text-[17px]
-                    "
-                  >
+                  <span className="block text-base font-[700] leading-snug text-text transition-colors duration-250 ease-out sm:text-[17px]">
                     {label}
                   </span>
 
-                  <span
-                    className="
-                      mt-1 block text-sm font-[500] leading-snug
-                      text-text-secondary transition-colors duration-250 ease-out
-                    "
-                  >
+                  <span className="mt-1 block text-sm font-[500] leading-snug text-text-secondary transition-colors duration-250 ease-out">
                     {sub}
                   </span>
                 </div>
@@ -227,9 +212,7 @@ export default function Selector({ picked, onPick }: Props) {
 
       <div
         className={`h-10 sm:h-14 ${
-          picked
-            ? 'bg-surface'
-            : 'rounded-t-[28px] bg-navy-900'
+          picked ? 'bg-surface' : 'rounded-t-[28px] bg-navy-900'
         }`}
         aria-hidden="true"
       />

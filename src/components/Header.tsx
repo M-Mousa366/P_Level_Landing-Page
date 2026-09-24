@@ -29,14 +29,22 @@ export default function Header() {
   }, [open]);
 
   const scrollTo = useCallback((id: string) => {
+    const wasOpen = openRef.current;
+
     setOpen(false);
 
-    requestAnimationFrame(() => {
+    const performScroll = () => {
       document.getElementById(id)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
-    });
+    };
+
+    if (wasOpen) {
+      window.setTimeout(performScroll, 220);
+    } else {
+      requestAnimationFrame(performScroll);
+    }
   }, []);
 
   const toggle = useCallback(() => {
@@ -132,8 +140,8 @@ export default function Header() {
 
       <div
         id="mobile-menu"
-        className={`overflow-hidden transition-all duration-200 md:hidden ${
-          open ? 'max-h-56 opacity-100' : 'max-h-0 opacity-0'
+        className={`overflow-hidden transition-[max-height,opacity] duration-200 ease-out md:hidden ${
+          open ? 'max-h-[140px] opacity-100' : 'max-h-0 opacity-0'
         }`}
         aria-hidden={open ? undefined : true}
       >
