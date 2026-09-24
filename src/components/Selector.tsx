@@ -44,6 +44,8 @@ const CARD_STYLES: Record<
     border: string;
     iconBg: string;
     text: string;
+    accent: string;
+    soft: string;
   }
 > = {
   center: {
@@ -51,24 +53,32 @@ const CARD_STYLES: Record<
     border: 'border-[#C4D3E3]',
     iconBg: 'bg-[#E3EBF4]',
     text: 'text-[#2D4A6E]',
+    accent: 'bg-[#4A78A8]',
+    soft: 'bg-[#4A78A8]/[0.08]',
   },
   'online-live': {
     bg: 'bg-[#EDF8F7]',
     border: 'border-[#B9DEDB]',
     iconBg: 'bg-[#D3ECEA]',
     text: 'text-[#246B68]',
+    accent: 'bg-[#3B9691]',
+    soft: 'bg-[#3B9691]/[0.08]',
   },
   books: {
     bg: 'bg-[#FBF5E8]',
     border: 'border-[#E8D5A4]',
     iconBg: 'bg-[#F4E9C9]',
     text: 'text-[#7A5C1E]',
+    accent: 'bg-[#C9973A]',
+    soft: 'bg-[#C9973A]/[0.08]',
   },
   club: {
     bg: 'bg-[#EEF6F1]',
     border: 'border-[#BFD9C9]',
     iconBg: 'bg-[#E1F0E6]',
     text: 'text-[#285C3A]',
+    accent: 'bg-[#3D8C57]',
+    soft: 'bg-[#3D8C57]/[0.08]',
   },
 };
 
@@ -117,7 +127,7 @@ export default function Selector({ picked, onPick }: Props) {
           </h2>
 
           <p className="mx-auto mt-3 max-w-lg text-base font-[500] leading-relaxed text-text-secondary sm:text-[17px]">
-            اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
+           اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
           </p>
         </div>
 
@@ -144,63 +154,106 @@ export default function Selector({ picked, onPick }: Props) {
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 tabIndex={active || (!picked && index === 0) ? 0 : -1}
                 className={`
-                  group relative flex min-h-[92px] w-full items-center gap-4
-                  rounded-2xl border p-4 text-right
-                  transition-[transform,opacity,background-color,border-color,box-shadow] duration-250 ease-out
+                  group relative flex min-h-[104px] w-full items-center
+                  gap-4 overflow-hidden rounded-2xl border p-4 text-right
+                  transition-[transform,opacity,background-color,border-color,box-shadow]
+                  duration-300 ease-out
                   focus:outline-none
                   focus-visible:ring-2
                   focus-visible:ring-brand
                   focus-visible:ring-offset-2
                   focus-visible:ring-offset-base
-                  sm:min-h-[100px] sm:p-5
+                  sm:min-h-[112px] sm:p-5
                   ${
                     active
-                      ? `${style.bg} ${style.border} shadow-md`
+                      ? `${style.bg} ${style.border} -translate-y-1 shadow-[0_12px_26px_rgba(15,23,42,0.10)]`
                       : dimmed
-                        ? 'cursor-pointer border-border bg-white opacity-[0.68] shadow-none'
-                        : 'cursor-pointer border-border bg-white shadow-sm hover:shadow-md'
+                        ? 'cursor-pointer border-border bg-white opacity-[0.58] shadow-none hover:-translate-y-0.5 hover:opacity-75 hover:shadow-[0_6px_16px_rgba(15,23,42,0.06)]'
+                        : 'cursor-pointer border-border bg-white shadow-[0_4px_12px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-border-strong hover:shadow-[0_12px_24px_rgba(15,23,42,0.10)]'
                   }
                 `}
               >
+                {/* Decorative accent line */}
+                <span
+                  className={`
+                    pointer-events-none absolute bottom-0 right-0 h-1
+                    rounded-tl-full transition-all duration-300 ease-out
+                    ${style.accent}
+                    ${
+                      active
+                        ? 'w-full opacity-100'
+                        : 'w-16 opacity-40 group-hover:w-28 group-hover:opacity-75'
+                    }
+                  `}
+                  aria-hidden="true"
+                />
+
+                {/* Soft hover glow */}
+                <span
+                  className={`
+                    pointer-events-none absolute -left-8 -top-8 h-24 w-24
+                    rounded-full blur-2xl transition-opacity duration-300
+                    ${style.soft}
+                    ${active ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}
+                  `}
+                  aria-hidden="true"
+                />
+
+                {/* Icon */}
                 <div
                   className={`
-                    flex h-12 w-12 shrink-0 items-center justify-center
-                    rounded-xl transition-[background-color,transform] duration-250 ease-out
+                    relative z-10 flex h-12 w-12 shrink-0 items-center
+                    justify-center rounded-xl
+                    transition-[transform,background-color,box-shadow]
+                    duration-300 ease-out
                     sm:h-[52px] sm:w-[52px]
                     ${style.iconBg}
+                    ${
+                      active
+                        ? 'scale-[1.04] shadow-sm'
+                        : 'group-hover:scale-[1.06]'
+                    }
                   `}
                   aria-hidden="true"
                 >
                   <Icon
                     size={21}
-                    strokeWidth={active ? 2.2 : 2}
-                    className={`transition-colors duration-250 ease-out ${style.text}`}
+                    strokeWidth={active ? 2.25 : 2}
+                    className={`${style.text} transition-transform duration-300`}
                   />
                 </div>
 
-                <div className="min-w-0 flex-1">
-                  <span className="block text-base font-[700] leading-snug text-text transition-colors duration-250 ease-out sm:text-[17px]">
+                {/* Text */}
+                <div className="relative z-10 min-w-0 flex-1">
+                  <span className="block text-base font-[700] leading-snug text-text transition-colors duration-300 sm:text-[17px]">
                     {label}
                   </span>
 
-                  <span className="mt-1 block text-sm font-[500] leading-snug text-text-secondary transition-colors duration-250 ease-out">
+                  <span className="mt-1 block text-sm font-[500] leading-snug text-text-secondary transition-colors duration-300">
                     {sub}
                   </span>
                 </div>
 
+                {/* Selection indicator */}
                 <div
-                  className="
-                    flex h-6 w-6 shrink-0 items-center justify-center
-                    rounded-full border-2 border-border-strong bg-white/70
-                    transition-[background-color,border-color,transform,opacity] duration-250 ease-out
-                  "
+                  className={`
+                    relative z-10 flex h-6 w-6 shrink-0 items-center
+                    justify-center rounded-full border-2
+                    transition-[background-color,border-color,transform,box-shadow]
+                    duration-300 ease-out
+                    ${
+                      active
+                        ? `${style.accent} border-transparent scale-105 shadow-sm`
+                        : 'border-border-strong bg-white'
+                    }
+                  `}
                   aria-hidden="true"
                 >
                   {active && (
                     <Check
                       size={12}
                       strokeWidth={3}
-                      className="animate-fade-in text-text"
+                      className="animate-fade-in text-white"
                     />
                   )}
                 </div>
