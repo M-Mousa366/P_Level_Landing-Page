@@ -86,6 +86,7 @@ export default function Hero() {
 
             <p className="mt-6 max-w-[560px] text-[16px] font-[400] leading-[1.95] text-white/75 sm:text-[17px] lg:text-[18px]">
               قدامك أكتر من طريقة لدراسة البرمجة وعلوم الحاسب
+              <span className="inline sm:hidden">&nbsp;</span>
               <br className="hidden sm:block" />
               اختار الطريقة اللي تناسب أسلوب مذاكرتك واحتياجاتك.
             </p>
